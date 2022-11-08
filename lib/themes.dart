@@ -61,6 +61,7 @@ ThemeData darkTheme = ThemeData(
   canvasColor: const Color(0xDF404041),
   dividerColor: const Color(0xFFE1C396),
   appBarTheme: const AppBarTheme(
+    elevation: 2.0,
     backgroundColor: Color(0xFF8D1C3D),
     foregroundColor: Color(0xFFE1C396),
     systemOverlayStyle: SystemUiOverlayStyle(

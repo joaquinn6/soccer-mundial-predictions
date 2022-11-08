@@ -25,7 +25,6 @@ class _MyHomePageState extends State<MyHomePage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Events'),
-        elevation: 2.0,
       ),
       body: Container(
           padding: const EdgeInsets.all(20),
