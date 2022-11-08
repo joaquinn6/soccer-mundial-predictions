@@ -9,10 +9,14 @@ class EventsApiCalls {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     List<Event>? result;
     try {
-      final response =
-          await http.get(Uri.parse(Vars.baseUrl + ''), headers: headers);
+      final response = await http.get(
+          Uri.parse(Vars.baseUrl + 'events?user_id=GjUhduqW2XnvMGuRFaRmu7'),
+          headers: headers);
       if (response.statusCode == 200) {
-        result = json.decode(response.body);
+        final listaDinamica = json.decode(response.body) as List;
+        result = listaDinamica
+            .map((eventJson) => Event.fromJson(eventJson))
+            .toList();
       } else {
         print("error");
       }

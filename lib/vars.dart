@@ -1,3 +1,3 @@
 class Vars {
-  static const baseUrl = '';
+  static const baseUrl = 'https://z3qnzz.deta.dev/';
 }
