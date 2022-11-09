@@ -23,6 +23,33 @@ class _MyHomePageState extends State<MyHomePage> {
     final events = Provider.of<EventsRequests>(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
+        drawer: Drawer(
+          semanticLabel: 'Menu de opciones',
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                  decoration: BoxDecoration(),
+                  child: Text(
+                    'Opciones',
+                    style: TextStyle(fontSize: 24),
+                  )),
+              ListTile(
+                leading: const Icon(Icons.people),
+                title: const Text('Lista de Amigos'),
+                subtitle: const Text('Lista de amigos con sus puntos'),
+                onTap: () => {print('Lista de amigos')},
+              ),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('Información'),
+                subtitle:
+                    const Text('Funcionamiento y reglamento de la aplicación'),
+                onTap: () => {print('Información')},
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: const Text('Events'),
         ),
@@ -35,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(evento.nombre),
                 subtitle:
                     Text(evento.estadio! + " - ".toString() + evento.fecha),
+                onTap: (() => {print('Toque en '.toString() + evento.id)}),
               ));
             },
             itemCount: events.allEvents?.length ?? 0));
