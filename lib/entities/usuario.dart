@@ -1,4 +1,4 @@
-class User {
+class Usuario {
   String id;
   String email;
   String username;
@@ -8,7 +8,7 @@ class User {
   List<String> amigos;
   String avatar;
 
-  User(
+  Usuario(
       {required this.id,
       required this.email,
       required this.username,
@@ -31,8 +31,8 @@ class User {
     };
   }
 
-  factory User.fromJson(json) {
-    return User(
+  factory Usuario.fromJson(json) {
+    return Usuario(
         id: json['_id'] as String,
         email: json['email'] as String,
         username: json['username'] as String,

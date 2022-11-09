@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../entities/user.dart';
+import '../entities/usuario.dart';
 import '../services/service_user.dart';
 
 class UserRequest extends ChangeNotifier {
-  List<User>? allUsers;
+  List<Usuario>? allUsers;
   bool loading = false;
 
-  getDataUser() async {
+  getDataUsers() async {
     loading = true;
-    allUsers = {await UsersApiCalls().getUserList()};
+    allUsers = (await UsersApiCalls().getUserList());
     loading = false;
     notifyListeners();
   }
