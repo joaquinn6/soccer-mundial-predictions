@@ -22,21 +22,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final events = Provider.of<EventsRequests>(context);
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: const Text('Events'),
-      ),
-      body: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 400, bottom: 20),
-                child: Text(events.allEvents?[0].nombre ?? "HOLA"),
-              )
-            ],
-          )),
-    );
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          title: const Text('Events'),
+        ),
+        body: ListView.separated(
+            separatorBuilder: ((context, index) => const Divider()),
+            itemBuilder: (BuildContext context, int index) {
+              final evento = events.allEvents![index];
+              return Card(
+                  child: ListTile(
+                title: Text(evento.nombre),
+                subtitle:
+                    Text(evento.estadio! + " - ".toString() + evento.fecha),
+              ));
+            },
+            itemCount: events.allEvents?.length ?? 0));
   }
 }
