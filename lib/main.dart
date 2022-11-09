@@ -1,15 +1,16 @@
-import 'package:app_mundial/entities/event.dart';
 import 'package:flutter/material.dart';
 import 'themes.dart';
 import 'package:provider/provider.dart';
 import './providers/provider_events.dart';
-import './entities/event.dart';
+import './providers/provider_users.dart';
 import 'views/home_page.dart';
+import 'views/users_points_pages.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => EventsRequests())],
-      child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => EventsRequests()),
+    ChangeNotifierProvider(create: (_) => UserRequest())
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       initialRoute: "/",
       debugShowCheckedModeBanner: false,
-      routes: {"/": (BuildContext context) => const MyHomePage()},
+      routes: {
+        "/": (BuildContext context) => const MyHomePage(),
+        "/user-table": (BuildContext context) => const TableUserPage()
+      },
     );
   }
 }

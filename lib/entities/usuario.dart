@@ -39,7 +39,7 @@ class Usuario {
         puntosResultado: json['puntosResultado'] as int,
         puntosMarcador: json['puntosMarcador'] as int,
         total: json['total'] as int,
-        amigos: json['amigos'] as List<String>,
+        amigos: json['amigos'].cast<String>() as List<String>,
         avatar: json['avatar'] as String);
   }
 }

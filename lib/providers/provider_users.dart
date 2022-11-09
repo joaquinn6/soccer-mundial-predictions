@@ -3,7 +3,7 @@ import '../entities/usuario.dart';
 import '../services/service_user.dart';
 
 class UserRequest extends ChangeNotifier {
-  List<Usuario>? allUsers;
+  List<Usuario>? allUsers = [];
   bool loading = false;
 
   getDataUsers() async {
