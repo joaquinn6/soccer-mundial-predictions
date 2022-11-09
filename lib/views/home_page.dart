@@ -22,21 +22,49 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final events = Provider.of<EventsRequests>(context);
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: const Text('Events'),
-      ),
-      body: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 400, bottom: 20),
-                child: Text(events.allEvents?[0].nombre ?? "HOLA"),
+        extendBodyBehindAppBar: true,
+        drawer: Drawer(
+          semanticLabel: 'Menu de opciones',
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                  decoration: BoxDecoration(),
+                  child: Text(
+                    'Opciones',
+                    style: TextStyle(fontSize: 24),
+                  )),
+              ListTile(
+                leading: const Icon(Icons.people),
+                title: const Text('Lista de Amigos'),
+                subtitle: const Text('Lista de amigos con sus puntos'),
+                onTap: () => {print('Lista de amigos')},
+              ),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('Información'),
+                subtitle:
+                    const Text('Funcionamiento y reglamento de la aplicación'),
+                onTap: () => {print('Información')},
               )
             ],
-          )),
-    );
+          ),
+        ),
+        appBar: AppBar(
+          title: const Text('Events'),
+        ),
+        body: ListView.separated(
+            separatorBuilder: ((context, index) => const Divider()),
+            itemBuilder: (BuildContext context, int index) {
+              final evento = events.allEvents![index];
+              return Card(
+                  child: ListTile(
+                title: Text(evento.nombre),
+                subtitle:
+                    Text(evento.estadio! + " - ".toString() + evento.fecha),
+                onTap: (() => {print('Toque en '.toString() + evento.id)}),
+              ));
+            },
+            itemCount: events.allEvents?.length ?? 0));
   }
 }
