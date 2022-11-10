@@ -21,11 +21,11 @@ class _TableUserPageState extends State<TableUserPage> {
   Widget build(BuildContext context) {
     final users = Provider.of<UserRequest>(context);
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: const Text('Tabla de posiciones'),
         ),
         body: DataTable(
+            dividerThickness: 2,
             columns: const <DataColumn>[
               DataColumn(label: Expanded(child: Text("Nombre"))),
               DataColumn(label: Expanded(child: Text("Puntos"))),
