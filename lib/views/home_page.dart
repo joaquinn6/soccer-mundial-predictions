@@ -57,14 +57,40 @@ class _MyHomePageState extends State<MyHomePage> {
             separatorBuilder: ((context, index) => const Divider()),
             itemBuilder: (BuildContext context, int index) {
               final evento = events.allEvents![index];
-              return Card(
-                  child: ListTile(
-                title: Text(evento.nombre),
-                subtitle:
-                    Text(evento.estadio! + " - ".toString() + evento.fecha),
-                onTap: (() => {print('Toque en '.toString() + evento.id)}),
-              ));
+              return InkWell(
+                child: _cardEvent(evento),
+                onTap: () => {print('tap in evento: ' + evento.nombre)},
+              );
             },
             itemCount: events.allEvents?.length ?? 0));
   }
+}
+
+Card _cardEvent(Event data) {
+  return Card(
+      child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(children: [
+      Center(child: Text(data.nombre)),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(data.equipoLocal),
+          Text(
+            _marcador(data),
+            style: const TextStyle(fontSize: 30),
+          ),
+          Text(data.equipoVisita)
+        ],
+      ),
+      Text(data.fecha)
+    ]),
+  ));
+}
+
+String _marcador(Event data) {
+  String local = '-', visita = '-';
+  if (data.golesLocal != null) local = data.golesLocal.toString();
+  if (data.golesVisita != null) visita = data.golesVisita.toString();
+  return local + '-'.toString() + visita;
 }

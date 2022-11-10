@@ -1,3 +1,5 @@
+import 'prediction.dart';
+
 class Event {
   String id;
   String nombre;
@@ -10,6 +12,7 @@ class Event {
   int? golesVisita;
   String? estadio;
   String estado;
+  Prediction? prediccion;
 
   Event(
       {required this.id,
@@ -22,7 +25,8 @@ class Event {
       this.golesLocal,
       this.golesVisita,
       this.estadio,
-      required this.estado});
+      required this.estado,
+      this.prediccion});
 
   Map<String, dynamic> toJson() {
     return {
@@ -37,6 +41,7 @@ class Event {
       'golesVisita': golesVisita,
       'estadio': estadio,
       'estado': estado,
+      'prediccion': prediccion!.toJson()
     };
   }
 
@@ -52,6 +57,7 @@ class Event {
         golesLocal: json['golesLocal'] as int?,
         golesVisita: json['golesVisita'] as int?,
         estadio: json['estadio'] as String?,
-        estado: json['estado'] as String);
+        estado: json['estado'] as String,
+        prediccion: json['prediccion'] as Prediction?);
   }
 }
