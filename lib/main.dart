@@ -1,4 +1,5 @@
 import 'package:app_mundial/entities/event.dart';
+import 'package:app_mundial/views/user_page.dart';
 import 'package:flutter/material.dart';
 import 'themes.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Soccer Predictions',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      initialRoute: "/",
-      debugShowCheckedModeBanner: false,
-      routes: {"/": (BuildContext context) => const MyHomePage()},
-    );
+        title: 'Soccer Predictions',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        initialRoute: "/",
+        debugShowCheckedModeBanner: false,
+        routes: {
+          "/": (BuildContext context) => const MyHomePage(),
+          "/username": (BuildContext context) => const UserPage()
+        });
   }
 }

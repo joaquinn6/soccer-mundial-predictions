@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: const Icon(Icons.people),
                 title: const Text('Lista de Amigos'),
                 subtitle: const Text('Lista de amigos con sus puntos'),
-                onTap: () => {print('Lista de amigos')},
+                onTap: () => {Navigator.of(context).pushNamed('/username')},
               ),
               ListTile(
                 leading: const Icon(Icons.info),
