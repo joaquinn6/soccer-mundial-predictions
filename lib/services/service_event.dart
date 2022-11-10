@@ -13,10 +13,10 @@ class EventsApiCalls {
           Uri.parse(Vars.baseUrl + 'events?user_id=GjUhduqW2XnvMGuRFaRmu7'),
           headers: headers);
       if (response.statusCode == 200) {
-        final listaDinamica = json.decode(response.body) as List;
-        result = listaDinamica
-            .map((eventJson) => Event.fromJson(eventJson))
-            .toList();
+        final listaDin = json
+            .decode(const Utf8Decoder().convert(response.bodyBytes)) as List;
+        result =
+            listaDin.map((eventJson) => Event.fromJson(eventJson)).toList();
       } else {
         print("error");
       }
