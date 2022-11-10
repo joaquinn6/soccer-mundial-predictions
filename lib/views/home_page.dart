@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: const Icon(Icons.people),
                 title: const Text('Lista de Amigos'),
                 subtitle: const Text('Lista de amigos con sus puntos'),
-                onTap: () => {Navigator.of(context).pushNamed('/username')},
+                onTap: () => {},
               ),
               ListTile(
                 leading: const Icon(Icons.info),
@@ -48,6 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 subtitle:
                     const Text('Funcionamiento y reglamento de la aplicación'),
                 onTap: () => {print('Información')},
+              ),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('Temporal'),
+                subtitle: const Text('Login'),
+                onTap: () => {Navigator.of(context).pushNamed('/username')},
               )
             ],
           ),
