@@ -1,3 +1,5 @@
+import 'prediction.dart';
+
 class Event {
   String id;
   String nombre;
@@ -10,7 +12,12 @@ class Event {
   int? golesVisita;
   String? estadio;
   String estado;
-
+  Prediction? prediccion;
+  String nombreLocal;
+  String nombreVisita;
+  String isoLocal;
+  String isoVisita;
+  String versus;
   Event(
       {required this.id,
       required this.nombre,
@@ -22,7 +29,13 @@ class Event {
       this.golesLocal,
       this.golesVisita,
       this.estadio,
-      required this.estado});
+      required this.estado,
+      this.prediccion,
+      required this.nombreLocal,
+      required this.nombreVisita,
+      required this.isoLocal,
+      required this.isoVisita,
+      required this.versus});
 
   Map<String, dynamic> toJson() {
     return {
@@ -37,6 +50,12 @@ class Event {
       'golesVisita': golesVisita,
       'estadio': estadio,
       'estado': estado,
+      'prediccion': prediccion!.toJson(),
+      'nombreLocal': nombreLocal,
+      'nombreVisita': nombreVisita,
+      'isoLocal': isoLocal,
+      'isoVisita': isoVisita,
+      'versus': versus,
     };
   }
 
@@ -52,6 +71,12 @@ class Event {
         golesLocal: json['golesLocal'] as int?,
         golesVisita: json['golesVisita'] as int?,
         estadio: json['estadio'] as String?,
-        estado: json['estado'] as String);
+        estado: json['estado'] as String,
+        prediccion: json['prediccion'] as Prediction?,
+        nombreLocal: json['nombreLocal'] as String,
+        nombreVisita: json['nombreVisita'] as String,
+        isoLocal: json['isoLocal'] as String,
+        isoVisita: json['isoVisita'] as String,
+        versus: json['versus'] as String);
   }
 }
