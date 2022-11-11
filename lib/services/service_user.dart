@@ -25,4 +25,24 @@ class UsersApiCalls {
     }
     return result;
   }
+
+  Future<String> addUserFriend(String username) async {
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode(<String, String>{'username': username});
+    String result = "pipo";
+    try {
+      final response = await http.put(
+          Uri.parse("${Vars.baseUrl}user/GjUhduqW2XnvMGuRFaRmu7/amigo"),
+          headers: headers,
+          body: body);
+      if (response.statusCode == 200) {
+        result = "OK";
+      } else {
+        result = "KO";
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return result;
+  }
 }
