@@ -46,7 +46,7 @@ class _TableUserPageState extends State<TableUserPage> {
           children: [
             DataTable(
                 checkboxHorizontalMargin: 8.0,
-                columnSpacing: 9,
+                columnSpacing: 8,
                 dividerThickness: 2,
                 columns: const <DataColumn>[
                   DataColumn(label: Expanded(child: Text("Avatar"))),
