@@ -4,7 +4,7 @@ import '../services/service_user.dart';
 
 class UserRequest extends ChangeNotifier {
   UsersApiCalls UserRequestApi = UsersApiCalls();
-  List<Usuario>? allUsers = [];
+  List<Usuario> allUsers = [];
   bool loading = false;
 
   String amigoResponse = "";

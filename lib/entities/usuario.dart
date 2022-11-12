@@ -5,7 +5,7 @@ class Usuario {
   int puntosResultado;
   int puntosMarcador;
   int total;
-  List<String> amigos;
+  List<String>? amigos;
   String avatar;
 
   Usuario(
@@ -15,7 +15,7 @@ class Usuario {
       required this.puntosResultado,
       required this.puntosMarcador,
       required this.total,
-      required this.amigos,
+      this.amigos,
       required this.avatar});
 
   Map<String, dynamic> toJson() {
@@ -39,7 +39,9 @@ class Usuario {
         puntosResultado: json['puntosResultado'] as int,
         puntosMarcador: json['puntosMarcador'] as int,
         total: json['total'] as int,
-        amigos: json['amigos'].cast<String>() as List<String>,
+        amigos: json['amigos'] != null
+            ? json['amigos'].cast<String>() as List<String>
+            : [],
         avatar: json['avatar'] as String);
   }
 }

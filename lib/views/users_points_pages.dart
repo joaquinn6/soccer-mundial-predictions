@@ -1,4 +1,5 @@
 import 'package:app_mundial/providers/provider_users.dart';
+import 'package:app_mundial/services/service_user.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +13,14 @@ class TableUserPage extends StatefulWidget {
 
 class _TableUserPageState extends State<TableUserPage> {
   final amigoEditText = TextEditingController();
+  late UserRequest thisContext;
   @override
   void initState() {
     final usersProvider = Provider.of<UserRequest>(context, listen: false);
+    thisContext = Provider.of<UserRequest>(context, listen: false);
     super.initState();
     usersProvider.getDataUsers();
+    /* thisContext=context; */
   }
 
   @override
@@ -37,46 +41,52 @@ class _TableUserPageState extends State<TableUserPage> {
                 openDialog(users);
               }),
         ]),
-        body: DataTable(
-            checkboxHorizontalMargin: 8.0,
-            dividerThickness: 2,
-            columns: const <DataColumn>[
-              DataColumn(label: Expanded(child: Text(""))),
-              DataColumn(label: Expanded(child: Text("Nombre"))),
-              DataColumn(label: Expanded(child: Text("Puntos"))),
-              DataColumn(label: Expanded(child: Text("Pts. Resultado"))),
-              DataColumn(label: Expanded(child: Text("Pts. Marcador"))),
-            ],
-            rows: users.allUsers!
-                .map((user) => DataRow(cells: [
-                      DataCell(CountryFlags.flag(
-                        user.avatar.toLowerCase(),
-                        height: 30,
-                        width: 40,
-                        borderRadius: 8,
-                      )),
-                      DataCell(
-                        Text(
-                          user.username,
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          user.total.toString(),
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          user.puntosResultado.toString(),
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          user.puntosMarcador.toString(),
-                        ),
-                      ),
-                    ]))
-                .toList()));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DataTable(
+                checkboxHorizontalMargin: 8.0,
+                columnSpacing: 9,
+                dividerThickness: 2,
+                columns: const <DataColumn>[
+                  DataColumn(label: Expanded(child: Text("Avatar"))),
+                  DataColumn(label: Expanded(child: Text("Nombre"))),
+                  DataColumn(label: Expanded(child: Text("Puntos"))),
+                  DataColumn(label: Expanded(child: Text("Pts. Resultado"))),
+                  DataColumn(label: Expanded(child: Text("Pts. Marcador"))),
+                ],
+                rows: users.allUsers
+                    .map((user) => DataRow(cells: [
+                          DataCell(
+                            CountryFlags.flag(
+                              user.avatar.toLowerCase(),
+                              height: 25,
+                              width: 25,
+                              borderRadius: 100,
+                            ),
+                          ),
+                          DataCell(Text(
+                            user.username,
+                          )),
+                          DataCell(
+                            Text(
+                              user.total.toString(),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              user.puntosResultado.toString(),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              user.puntosMarcador.toString(),
+                            ),
+                          ),
+                        ]))
+                    .toList())
+          ],
+        ));
   }
 
   Future<String?> openDialog(users) => showDialog<String>(
@@ -96,12 +106,28 @@ class _TableUserPageState extends State<TableUserPage> {
                     agregarAmigo(users);
                   },
                   child: const Text('Agregar')),
-              TextButton(onPressed: () {}, child: const Text('Cancelar'))
+              TextButton(
+                  onPressed: () {
+                    cerrarDialogo("");
+                  },
+                  child: const Text('Cancelar'))
             ],
           ));
   void agregarAmigo(users) {
-    users.addFriend(amigoEditText.text);
-    print(users.amigoResponse);
+    /* users.addFriend(amigoEditText.text); */
+    /* UsersApiCalls apiuser = UsersApiCalls();
+    String response = await apiuser.addUserFriend(amigoEditText.text); */
+    thisContext.addFriend(amigoEditText.text);
+    if (users.amigoResponse == "OK") {
+      thisContext.getDataUsers();
+      cerrarDialogo(users.amigoResponse);
+    } else {
+      print("Hubo un fallo");
+    }
+  }
+
+  void cerrarDialogo(String response) {
+    Navigator.of(context, rootNavigator: true).pop(response);
   }
 }
 /*
