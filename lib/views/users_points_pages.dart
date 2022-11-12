@@ -3,6 +3,7 @@ import 'package:app_mundial/services/service_user.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TableUserPage extends StatefulWidget {
   const TableUserPage({super.key});
@@ -13,14 +14,16 @@ class TableUserPage extends StatefulWidget {
 
 class _TableUserPageState extends State<TableUserPage> {
   final amigoEditText = TextEditingController();
-  late UserRequest thisContext;
+  late UserRequest usersProvider;
+  late FToast fToast;
+
   @override
   void initState() {
-    final usersProvider = Provider.of<UserRequest>(context, listen: false);
-    thisContext = Provider.of<UserRequest>(context, listen: false);
+    usersProvider = Provider.of<UserRequest>(context, listen: false);
     super.initState();
     usersProvider.getDataUsers();
-    /* thisContext=context; */
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
@@ -36,7 +39,7 @@ class _TableUserPageState extends State<TableUserPage> {
         appBar:
             AppBar(title: const Text('Tabla de posiciones'), actions: <Widget>[
           IconButton(
-              icon: new Icon(Icons.person_add),
+              icon: const Icon(Icons.person_add),
               onPressed: () {
                 openDialog(users);
               }),
@@ -92,7 +95,7 @@ class _TableUserPageState extends State<TableUserPage> {
   Future<String?> openDialog(users) => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text('Agregar amigo'),
+            title: const Text('Agregar amigo'),
             content: TextField(
               decoration: const InputDecoration(
                   hintText: 'Ingresa el codigo de usuario'),
@@ -113,60 +116,63 @@ class _TableUserPageState extends State<TableUserPage> {
                   child: const Text('Cancelar'))
             ],
           ));
-  void agregarAmigo(users) {
-    /* users.addFriend(amigoEditText.text); */
-    /* UsersApiCalls apiuser = UsersApiCalls();
-    String response = await apiuser.addUserFriend(amigoEditText.text); */
-    thisContext.addFriend(amigoEditText.text);
-    if (users.amigoResponse == "OK") {
-      thisContext.getDataUsers();
-      cerrarDialogo(users.amigoResponse);
+  Future<void> agregarAmigo(users) async {
+    UsersApiCalls apiuser = UsersApiCalls();
+    String response = await apiuser.addUserFriend(amigoEditText.text);
+    usersProvider.addFriend(amigoEditText.text);
+    if (response == "OK") {
+      usersProvider.getDataUsers();
+      amigoEditText.text = "";
+      _showToast("Amigo agregado", "success");
     } else {
-      print("Hubo un fallo");
+      amigoEditText.text = "";
+      _showToast("Hubo un error con el nombre de usuario", "error");
     }
+    cerrarDialogo(users.amigoResponse);
   }
 
   void cerrarDialogo(String response) {
+    amigoEditText.text = "";
     Navigator.of(context, rootNavigator: true).pop(response);
   }
-}
-/*
-List<DataRow> _DataRowUsers(users) {
-  List<DataRow> lista = [];
-  if (users != null) {
-    lista = users!
-        .map((user) => DataRow(cells: [
-              DataCell(
-                Text(
-                  user.username,
-                ),
-              ),
-              DataCell(
-                Text(
-                  user.total.toString(),
-                ),
-              ),
-              DataCell(
-                Text(
-                  user.puntosResultado.toString(),
-                ),
-              ),
-              DataCell(
-                Text(
-                  user.puntosMarcador.toString(),
-                ),
-              ),
-            ]))
-        .toList();
-  }
-  return lista;
-}
- */
 
-/* for (var item in users.allUsers!)
-              DataRow(cells: <DataCell>[
-                DataCell(Text(item.username)),
-                DataCell(Text(item.total.toString())),
-                DataCell(Text(item.puntosResultado.toString())),
-                DataCell(Text(item.puntosMarcador.toString())),
-              ]) */
+  _showToast(String msg, String tipo) {
+    Color color;
+    IconData icono;
+    if (tipo == "error") {
+      color = const Color.fromARGB(255, 231, 20, 20);
+      icono = Icons.error;
+    } else if (tipo == "success") {
+      color = Colors.greenAccent;
+      icono = Icons.check;
+    } else {
+      color = const Color.fromARGB(255, 226, 241, 14);
+      icono = Icons.warning;
+    }
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: color,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icono),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Expanded(
+            child: Text(style: const TextStyle(color: Colors.black), msg),
+          )
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+}

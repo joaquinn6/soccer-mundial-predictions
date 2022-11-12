@@ -9,7 +9,7 @@ import 'views/users_points_pages.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => EventsRequests()),
-    ChangeNotifierProvider(create: (_) => UserRequest())
+    ChangeNotifierProvider(create: (context) => UserRequest())
   ], child: const MyApp()));
 }
 
