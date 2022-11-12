@@ -44,6 +44,7 @@ dependencies:
   country_flags: ^1.0.0
   intl: ^0.17.0
   fluttertoast: ^8.1.1
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:app_mundial/views/user_page.dart';
 import 'package:flutter/material.dart';
 import 'themes.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (BuildContext context) => const MyHomePage(),
-        "/user-table": (BuildContext context) => const TableUserPage()
+        "/user-table": (BuildContext context) => const TableUserPage(),
+        "/username": (BuildContext context) => const UserPage()
       },
     );
   }
