@@ -1,5 +1,6 @@
 import 'package:app_mundial/entities/event.dart';
 import 'package:app_mundial/providers/provider_events.dart';
+import 'package:app_mundial/views/users_points_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_flags/country_flags.dart';
@@ -40,7 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: const Icon(Icons.people),
                 title: const Text('Lista de Amigos'),
                 subtitle: const Text('Lista de amigos con sus puntos'),
-                onTap: () => {},
+                onTap: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TableUserPage()))
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.info),
