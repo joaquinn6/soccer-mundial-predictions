@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:intl/intl.dart';
 
+import '../components/prediction_modal.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -70,11 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
               final evento = events.allEvents![index];
               return InkWell(
                 child: _cardEvent(evento),
-                onTap: () => {print('tap in evento: ' + evento.nombre)},
+                onTap: () => {
+                  events.indexEventSelected = index,
+                  events.eventSelected = evento,
+                  _showDialog(context)
+                },
               );
             },
             itemCount: events.allEvents?.length ?? 0));
   }
+}
+
+_showDialog(BuildContext context) {
+  const dialog = EventPrediction();
+  showDialog(context: context, builder: (BuildContext context) => dialog);
 }
 
 Card _cardEvent(Event data) {
