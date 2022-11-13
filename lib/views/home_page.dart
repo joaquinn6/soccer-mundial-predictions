@@ -1,5 +1,6 @@
 import 'package:app_mundial/entities/event.dart';
 import 'package:app_mundial/providers/provider_events.dart';
+import 'package:app_mundial/providers/provider_users.dart';
 import 'package:app_mundial/views/users_points_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     final events = Provider.of<EventsRequests>(context, listen: false);
-    events.getData();
+    final user = Provider.of<UserRequest>(context, listen: false);
+
+    events.getData(user.idLogged);
   }
 
   @override

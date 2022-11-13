@@ -118,7 +118,8 @@ class _TableUserPageState extends State<TableUserPage> {
           ));
   Future<void> agregarAmigo(users) async {
     UsersApiCalls apiuser = UsersApiCalls();
-    String response = await apiuser.addUserFriend(amigoEditText.text);
+    String response =
+        await apiuser.addUserFriend(amigoEditText.text, usersProvider.idLogged);
     usersProvider.addFriend(amigoEditText.text);
     if (response == "OK") {
       usersProvider.getDataUsers();

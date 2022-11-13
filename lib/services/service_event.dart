@@ -5,12 +5,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 class EventsApiCalls {
-  Future<List<Event>?> getEventList() async {
+  Future<List<Event>?> getEventList(String idUsuario) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     List<Event>? result;
     try {
       final response = await http.get(
-          Uri.parse(Vars.baseUrl + 'events?user_id=GjUhduqW2XnvMGuRFaRmu7'),
+          Uri.parse('${Vars.baseUrl}events?user_id=$idUsuario'),
           headers: headers);
       if (response.statusCode == 200) {
         final listaDin = json

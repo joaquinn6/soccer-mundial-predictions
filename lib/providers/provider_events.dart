@@ -7,9 +7,9 @@ class EventsRequests extends ChangeNotifier {
   List<Event>? allEvents;
   bool loading = false;
 
-  getData() async {
+  getData(String idUsuario) async {
     loading = true;
-    allEvents = (await EventsApiCalls().getEventList());
+    allEvents = (await EventsApiCalls().getEventList(idUsuario));
     loading = false;
     notifyListeners();
   }

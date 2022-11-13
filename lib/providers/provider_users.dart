@@ -26,14 +26,14 @@ class UserRequest extends ChangeNotifier {
 
   getDataUsers() async {
     loading = true;
-    allUsers = (await UserRequestApi.getUserList());
+    allUsers = (await UserRequestApi.getUserList(idLogged));
     loading = false;
     notifyListeners();
   }
 
   addFriend(String username) async {
     loadingAmigo = true;
-    amigoResponse = (await UserRequestApi.addUserFriend(username));
+    amigoResponse = (await UserRequestApi.addUserFriend(username, idLogged));
     loadingAmigo = false;
     notifyListeners();
   }

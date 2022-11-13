@@ -7,12 +7,12 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersApiCalls {
-  Future<List<Usuario>> getUserList() async {
+  Future<List<Usuario>> getUserList(String userId) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     List<Usuario> result = [];
     try {
       final response = await http.get(
-          Uri.parse("${Vars.baseUrl}user/GjUhduqW2XnvMGuRFaRmu7/table"),
+          Uri.parse("${Vars.baseUrl}user/$userId/table"),
           headers: headers);
       if (response.statusCode == 200) {
         final listaDinamica = json.decode(response.body) as List;
@@ -28,13 +28,13 @@ class UsersApiCalls {
     return result;
   }
 
-  Future<String> addUserFriend(String username) async {
+  Future<String> addUserFriend(String username, String userId) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(<String, String>{'username': username});
     String result = "";
     try {
       final response = await http.put(
-          Uri.parse("${Vars.baseUrl}user/GjUhduqW2XnvMGuRFaRmu7/amigo"),
+          Uri.parse("${Vars.baseUrl}user/$userId/amigo"),
           headers: headers,
           body: body);
       if (response.statusCode == 200) {
