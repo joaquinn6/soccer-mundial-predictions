@@ -1,3 +1,4 @@
+import '../models/response.dart';
 import '../vars.dart';
 import 'package:http/http.dart' as http;
 import '../entities/usuario.dart';
@@ -40,6 +41,27 @@ class UsersApiCalls {
         result = "OK";
       } else {
         result = "KO";
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return result;
+  }
+
+  Future<Response?> createUser(String username, String email) async {
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    final body =
+        jsonEncode(<String, String>{'username': username, 'email': email});
+    Response? result = Response();
+    try {
+      final response = await http.post(Uri.parse("${Vars.baseUrl}user"),
+          headers: headers, body: body);
+      if (response.statusCode == 200) {
+        result.usuario = Usuario.fromJson(json.decode(response.body));
+      } else if (response.statusCode == 409) {
+        result.error = 'Usuario ya existente';
+      } else {
+        print("Error");
       }
     } catch (e) {
       log(e.toString());
