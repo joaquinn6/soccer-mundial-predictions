@@ -16,9 +16,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final preferences = Provider.of<UserRequest>(context, listen: false);
+    preferences.checkLogin();
     return MaterialApp(
       title: 'Soccer Predictions',
       theme: lightTheme,
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (BuildContext context) => const MyHomePage(),
+        "/": (BuildContext context) =>
+            preferences.isLogged ? const MyHomePage() : const UserPage(),
         "/user-table": (BuildContext context) => const TableUserPage(),
-        "/username": (BuildContext context) => const UserPage()
+        "/homepage": (BuildContext context) => const MyHomePage()
       },
     );
   }

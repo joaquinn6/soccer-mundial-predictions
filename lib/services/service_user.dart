@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import '../entities/usuario.dart';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersApiCalls {
   Future<List<Usuario>> getUserList() async {
@@ -44,5 +45,18 @@ class UsersApiCalls {
       log(e.toString());
     }
     return result;
+  }
+}
+
+class UserPreferences {
+  Future<String> getUserId() async {
+    final pref = await SharedPreferences.getInstance();
+    final userId = pref.getString('userId') ?? '';
+    return userId;
+  }
+
+  void setUserId(String userId) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString('userId', userId);
   }
 }
