@@ -106,7 +106,7 @@ class _TableUserPageState extends State<TableUserPage> {
                   style:
                       TextButton.styleFrom(foregroundColor: Colors.lightBlue),
                   onPressed: () {
-                    agregarAmigo(users);
+                    agregarAmigo();
                   },
                   child: const Text('Agregar')),
               TextButton(
@@ -116,20 +116,23 @@ class _TableUserPageState extends State<TableUserPage> {
                   child: const Text('Cancelar'))
             ],
           ));
-  Future<void> agregarAmigo(users) async {
-    UsersApiCalls apiuser = UsersApiCalls();
-    String response =
-        await apiuser.addUserFriend(amigoEditText.text, usersProvider.idLogged);
-    usersProvider.addFriend(amigoEditText.text);
-    if (response == "OK") {
-      usersProvider.getDataUsers();
-      amigoEditText.text = "";
-      _showToast("Amigo agregado", "success");
-    } else {
-      amigoEditText.text = "";
-      _showToast("Hubo un error con el nombre de usuario", "error");
-    }
-    cerrarDialogo(users.amigoResponse);
+  Future<void> agregarAmigo() async {
+    final Future<String> responseAdd =
+        usersProvider.addFriend(amigoEditText.text);
+    responseAdd.then((response) => {
+          if (response == "OK")
+            {
+              usersProvider.getDataUsers(),
+              amigoEditText.text = "",
+              _showToast("Amigo agregado", "success")
+            }
+          else
+            {
+              amigoEditText.text = "",
+              _showToast("Hubo un error con el nombre de usuario", "error")
+            }
+        });
+    cerrarDialogo(usersProvider.amigoResponse);
   }
 
   void cerrarDialogo(String response) {

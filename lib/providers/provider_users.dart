@@ -31,11 +31,12 @@ class UserRequest extends ChangeNotifier {
     notifyListeners();
   }
 
-  addFriend(String username) async {
+  Future<String> addFriend(String username) async {
     loadingAmigo = true;
     amigoResponse = (await UserRequestApi.addUserFriend(username, idLogged));
     loadingAmigo = false;
     notifyListeners();
+    return amigoResponse;
   }
 
   checkLogin() async {
