@@ -58,12 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text('Funcionamiento y reglamento de la aplicación'),
                 onTap: () => {print('Información')},
               ),
-              ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Temporal'),
-                subtitle: const Text('Login'),
-                onTap: () => {Navigator.of(context).pushNamed('/username')},
-              )
             ],
           ),
         ),
