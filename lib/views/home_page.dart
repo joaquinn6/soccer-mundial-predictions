@@ -95,10 +95,12 @@ Card _cardEvent(Event data) {
             width: 80,
             borderRadius: 8,
           ),
+          Text(_prediction('local', data)),
           Text(
             _marcador(data),
             style: const TextStyle(fontSize: 30),
           ),
+          Text(_prediction('local', data)),
           CountryFlags.flag(
             data.isoVisita,
             height: 60,
@@ -122,4 +124,13 @@ String _marcador(Event data) {
 String _formatDate(String hora) {
   return DateFormat('dd-MM-yyyy – hh:mm aa')
       .format(DateTime.parse(hora).toLocal());
+}
+
+String _prediction(String tipo, Event data) {
+  if (data.prediccion != null) {
+    return tipo == 'local'
+        ? data.prediccion!.golesLocal.toString()
+        : data.prediccion!.golesVisita.toString();
+  }
+  return '0';
 }
