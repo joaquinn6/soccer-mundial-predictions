@@ -1,6 +1,6 @@
 class Prediction {
-  String id;
-  String eventoId;
+  String? id;
+  String eventId;
   String userId;
   int golesLocal;
   int golesVisita;
@@ -8,8 +8,8 @@ class Prediction {
   bool? tiemposExtras;
 
   Prediction(
-      {required this.id,
-      required this.eventoId,
+      {this.id,
+      required this.eventId,
       required this.userId,
       required this.golesLocal,
       required this.golesVisita,
@@ -19,7 +19,7 @@ class Prediction {
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
-      'eventoId': eventoId,
+      'eventId': eventId,
       'userId': userId,
       'golesLocal': golesLocal,
       'golesVisita': golesVisita,
@@ -31,7 +31,7 @@ class Prediction {
   factory Prediction.fromJson(json) {
     return Prediction(
         id: json['_id'] as String,
-        eventoId: json['eventoId'] as String,
+        eventId: json['eventId'] as String,
         userId: json['userId'] as String,
         golesLocal: json['golesLocal'] as int,
         golesVisita: json['golesVisita'] as int,

@@ -53,23 +53,30 @@ class _UserPageState extends State<UserPage> {
                 child: Column(
                   children: [
                     FormBuilderTextField(
+                        keyboardType: TextInputType.text,
                         name: 'username',
                         autofocus: true,
                         maxLength: 20,
                         decoration: const InputDecoration(
                             labelText: "Nombre Usuario",
+                            hintText: 'Ejemplo... pedro1',
                             icon: Icon(Icons.person)),
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
+                          FormBuilderValidators.required(
+                              errorText: 'Nombre de usuario requerido'),
                         ])),
                     FormBuilderTextField(
+                      keyboardType: TextInputType.emailAddress,
                       name: 'email',
                       decoration: const InputDecoration(
                           labelText: "Correo electrónico",
+                          hintText: 'Ejemplo... pedro@gmail.com',
                           icon: Icon(Icons.email)),
                       validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.email(),
+                        FormBuilderValidators.required(
+                            errorText: 'Correo requerido'),
+                        FormBuilderValidators.email(
+                            errorText: 'Ingrese un correo valido'),
                       ]),
                     ),
                   ],
@@ -100,13 +107,13 @@ class _UserPageState extends State<UserPage> {
     Color color;
     IconData icono;
     if (tipo == "error") {
-      color = const Color.fromARGB(255, 231, 20, 20);
+      color = Color.fromARGB(125, 231, 20, 20);
       icono = Icons.error;
     } else if (tipo == "success") {
       color = Colors.greenAccent;
       icono = Icons.check;
     } else {
-      color = const Color.fromARGB(255, 226, 241, 14);
+      color = Color.fromARGB(178, 226, 241, 14);
       icono = Icons.warning;
     }
     Widget toast = Container(

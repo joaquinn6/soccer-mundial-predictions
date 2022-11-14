@@ -1,5 +1,4 @@
 import 'package:app_mundial/providers/provider_users.dart';
-import 'package:app_mundial/services/service_user.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -98,10 +97,15 @@ class _TableUserPageState extends State<TableUserPage> {
             title: const Text('Agregar amigo'),
             content: TextField(
               decoration: const InputDecoration(
-                  hintText: 'Ingresa el codigo de usuario'),
+                  hintText: 'Ingresa el nombre de usuario'),
               controller: amigoEditText,
             ),
             actions: [
+              TextButton(
+                  onPressed: () {
+                    cerrarDialogo("");
+                  },
+                  child: const Text('Cancelar')),
               TextButton(
                   style:
                       TextButton.styleFrom(foregroundColor: Colors.lightBlue),
@@ -109,11 +113,6 @@ class _TableUserPageState extends State<TableUserPage> {
                     agregarAmigo();
                   },
                   child: const Text('Agregar')),
-              TextButton(
-                  onPressed: () {
-                    cerrarDialogo("");
-                  },
-                  child: const Text('Cancelar'))
             ],
           ));
   Future<void> agregarAmigo() async {
@@ -144,13 +143,13 @@ class _TableUserPageState extends State<TableUserPage> {
     Color color;
     IconData icono;
     if (tipo == "error") {
-      color = const Color.fromARGB(255, 231, 20, 20);
+      color = Color.fromARGB(151, 231, 20, 20);
       icono = Icons.error;
     } else if (tipo == "success") {
       color = Colors.greenAccent;
       icono = Icons.check;
     } else {
-      color = const Color.fromARGB(255, 226, 241, 14);
+      color = Color.fromARGB(136, 226, 241, 14);
       icono = Icons.warning;
     }
     Widget toast = Container(
