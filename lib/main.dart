@@ -1,5 +1,6 @@
 import 'package:app_mundial/views/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'themes.dart';
 import 'package:provider/provider.dart';
 import './providers/provider_events.dart';
@@ -8,19 +9,23 @@ import 'views/home_page.dart';
 import 'views/users_points_pages.dart';
 
 Future<void> main() async {
-  await Future.delayed(Duration(seconds: 3));
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs =await SharedPreferences.getInstance();
+  var userId=prefs.getString("userId")??'';
+  var isLogged=userId!='';
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => EventsRequests()),
     ChangeNotifierProvider(create: (context) => UserRequest())
-  ], child: const MyApp()));
+  ], child: MyApp(isLogged)));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  var isLogged;
+
+  MyApp(this.isLogged, {super.key});
+  
   @override
   Widget build(BuildContext context) {
-    final preferences = Provider.of<UserRequest>(context, listen: false);
-    preferences.checkLogin();
     return MaterialApp(
       title: 'Soccer Predictions',
       theme: lightTheme,
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (BuildContext context) =>
-            preferences.isLogged ? const MyHomePage() : const UserPage(),
+            isLogged ? const MyHomePage() : const UserPage(),
         "/user-table": (BuildContext context) => const TableUserPage(),
         "/homepage": (BuildContext context) => const MyHomePage()
       },
