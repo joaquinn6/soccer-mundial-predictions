@@ -25,6 +25,7 @@ dependencies:
   flutter_form_builder: ^7.7.0
   form_builder_validators: ^8.4.0
   flutter_native_splash: ^2.2.14
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -50,8 +51,8 @@ flutter_icons:
 
 flutter:
   uses-material-design: true
-
-
+  assets:
+    - assets/flags/
 
 flutter_native_splash:
   color: "#8D1B3D"

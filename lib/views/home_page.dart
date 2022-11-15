@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../components/prediction_modal.dart';
 
@@ -96,29 +97,43 @@ Card _cardEvent(Event data) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CountryFlags.flag(
-            data.isoLocal.toLowerCase(),
-            height: 60,
-            width: 80,
-            borderRadius: 8,
-          ),
+          _flagShow(data.isoLocal, data.nombreLocal),
           Text(_prediction('local', data)),
           Text(
             _marcador(data),
             style: const TextStyle(fontSize: 30),
           ),
           Text(_prediction('visita', data)),
-          CountryFlags.flag(
-            data.isoVisita,
-            height: 60,
-            width: 80,
-            borderRadius: 8,
-          ),
+          _flagShow(data.isoVisita, data.nombreVisita),
         ],
       ),
       Text(_formatDate(data.fecha))
     ]),
   ));
+}
+
+Widget _flagShow(String iso, String name) {
+  if (iso != 'XX') {
+    return CountryFlags.flag(
+      iso,
+      height: 60,
+      width: 80,
+      borderRadius: 8,
+    );
+  } else {
+    return SizedBox(
+      height: 60,
+      width: 80,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        child: SvgPicture.asset(
+          'assets/flags/$name.svg',
+          semanticsLabel: 'bandera',
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
 }
 
 String _marcador(Event data) {

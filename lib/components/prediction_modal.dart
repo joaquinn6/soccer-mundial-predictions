@@ -2,6 +2,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../models/response.dart';
 import '../providers/provider_events.dart';
@@ -102,12 +103,8 @@ class _EventPredictionState extends State<EventPrediction> {
                           ),
                           Column(children: [
                             Text(events.eventSelected!.nombreLocal),
-                            CountryFlags.flag(
-                              events.eventSelected!.isoLocal,
-                              height: 60,
-                              width: 80,
-                              borderRadius: 8,
-                            ),
+                            _flagShow(events.eventSelected!.isoLocal,
+                                events.eventSelected!.nombreLocal),
                           ]),
                           Column(
                             children: [
@@ -226,12 +223,8 @@ class _EventPredictionState extends State<EventPrediction> {
                             ],
                           ),
                           Column(children: [
-                            CountryFlags.flag(
-                              events.eventSelected!.isoVisita,
-                              height: 60,
-                              width: 80,
-                              borderRadius: 8,
-                            ),
+                            _flagShow(events.eventSelected!.isoVisita,
+                                events.eventSelected!.nombreVisita),
                             Text(events.eventSelected!.nombreVisita),
                           ]),
                         ],
@@ -263,6 +256,30 @@ class _EventPredictionState extends State<EventPrediction> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _flagShow(String iso, String name) {
+  if (iso != 'XX') {
+    return CountryFlags.flag(
+      iso,
+      height: 60,
+      width: 80,
+      borderRadius: 8,
+    );
+  } else {
+    return SizedBox(
+      height: 60,
+      width: 80,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        child: SvgPicture.asset(
+          'assets/flags/$name.svg',
+          semanticsLabel: 'bandera',
+          fit: BoxFit.fill,
         ),
       ),
     );
