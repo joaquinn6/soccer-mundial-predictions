@@ -2,7 +2,7 @@
     package="com.example.app_mundial">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="app_mundial"
+        android:label="Mis Predicciones"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
