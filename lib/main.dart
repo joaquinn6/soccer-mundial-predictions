@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final usersProvider = Provider.of<UserRequest>(context, listen: false);
+    usersProvider.checkLogin();
     return MaterialApp(
       title: 'Soccer Predictions',
       theme: lightTheme,
