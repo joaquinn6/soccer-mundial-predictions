@@ -132,10 +132,10 @@ String _formatDate(String hora) {
 }
 
 String _prediction(String tipo, Event data) {
-  if (data.prediccion != null) {
+  if (data.prediction != null) {
     return tipo == 'local'
-        ? data.prediccion!.golesLocal.toString()
-        : data.prediccion!.golesVisita.toString();
+        ? data.prediction!.golesLocal.toString()
+        : data.prediction!.golesVisita.toString();
   }
   return '0';
 }

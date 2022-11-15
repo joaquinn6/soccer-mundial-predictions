@@ -5,7 +5,7 @@ class Prediction {
   int golesLocal;
   int golesVisita;
   bool? penales;
-  bool? tiemposExtras;
+  bool? tiemposExtra;
 
   Prediction(
       {this.id,
@@ -14,7 +14,7 @@ class Prediction {
       required this.golesLocal,
       required this.golesVisita,
       this.penales,
-      this.tiemposExtras});
+      this.tiemposExtra});
 
   Map<String, dynamic> toJson() {
     return {
@@ -24,7 +24,7 @@ class Prediction {
       'golesLocal': golesLocal,
       'golesVisita': golesVisita,
       'penales': penales,
-      'tiemposExtras': tiemposExtras
+      'tiemposExtra': tiemposExtra
     };
   }
 
@@ -36,6 +36,6 @@ class Prediction {
         golesLocal: json['golesLocal'] as int,
         golesVisita: json['golesVisita'] as int,
         penales: json['penales'] as bool,
-        tiemposExtras: json['tiemposExtras'] as bool);
+        tiemposExtra: json['tiemposExtra'] as bool);
   }
 }

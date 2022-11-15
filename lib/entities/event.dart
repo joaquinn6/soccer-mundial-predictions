@@ -12,7 +12,7 @@ class Event {
   int? golesVisita;
   String? estadio;
   String estado;
-  Prediction? prediccion;
+  Prediction? prediction;
   String nombreLocal;
   String nombreVisita;
   String isoLocal;
@@ -30,7 +30,7 @@ class Event {
       this.golesVisita,
       this.estadio,
       required this.estado,
-      this.prediccion,
+      this.prediction,
       required this.nombreLocal,
       required this.nombreVisita,
       required this.isoLocal,
@@ -50,7 +50,7 @@ class Event {
       'golesVisita': golesVisita,
       'estadio': estadio,
       'estado': estado,
-      'prediccion': prediccion!.toJson(),
+      'prediction': prediction!.toJson(),
       'nombreLocal': nombreLocal,
       'nombreVisita': nombreVisita,
       'isoLocal': isoLocal,
@@ -72,7 +72,9 @@ class Event {
         golesVisita: json['golesVisita'] as int?,
         estadio: json['estadio'] as String?,
         estado: json['estado'] as String,
-        prediccion: json['prediccion'] as Prediction?,
+        prediction: json['prediction'] != null
+            ? Prediction.fromJson(json['prediction'])
+            : null,
         nombreLocal: json['nombreLocal'] as String,
         nombreVisita: json['nombreVisita'] as String,
         isoLocal: json['isoLocal'] as String,

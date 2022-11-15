@@ -54,22 +54,22 @@ class EventsRequests extends ChangeNotifier {
       int golesVisitantes =
           int.parse(golVisita.text == '' ? '0' : golVisita.text);
 
-      if (eventSelected!.prediccion == null ||
-          (eventSelected!.prediccion!.golesLocal != golesLocales ||
-              eventSelected!.prediccion!.golesVisita != golesVisitantes)) {
+      if (eventSelected!.prediction == null ||
+          (eventSelected!.prediction!.golesLocal != golesLocales ||
+              eventSelected!.prediction!.golesVisita != golesVisitantes)) {
         Prediction prediction = Prediction(
             eventId: eventSelected!.id,
             userId: userId,
             golesLocal: golesLocales,
             golesVisita: golesVisitantes);
-        if (eventSelected!.prediccion != null) {
-          prediction.id = eventSelected!.prediccion!.id;
+        if (eventSelected!.prediction != null) {
+          prediction.id = eventSelected!.prediction!.id;
           response = (await PredictionsApiCalls().putPrediction(prediction));
         } else {
           response = (await PredictionsApiCalls().postPrediction(prediction));
         }
         if (response!.prediction != null) {
-          eventSelected!.prediccion = response.prediction;
+          eventSelected!.prediction = response.prediction;
           errorSave = '';
         } else {
           errorSave = 'Error al guardar predicción de ${eventSelected!.versus}';
@@ -81,12 +81,12 @@ class EventsRequests extends ChangeNotifier {
   }
 
   checkGoles() {
-    if (eventSelected!.prediccion == null) {
+    if (eventSelected!.prediction == null) {
       golLocal.text = '';
       golVisita.text = '';
     } else {
-      golLocal.text = eventSelected!.prediccion!.golesLocal.toString();
-      golVisita.text = eventSelected!.prediccion!.golesVisita.toString();
+      golLocal.text = eventSelected!.prediction!.golesLocal.toString();
+      golVisita.text = eventSelected!.prediction!.golesVisita.toString();
     }
     if (DateTime.parse(eventSelected!.fecha)
             .toLocal()
