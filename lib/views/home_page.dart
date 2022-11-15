@@ -105,7 +105,7 @@ Card _cardEvent(Event data) {
             _marcador(data),
             style: const TextStyle(fontSize: 30),
           ),
-          Text(_prediction('local', data)),
+          Text(_prediction('visita', data)),
           CountryFlags.flag(
             data.isoVisita,
             height: 60,
@@ -137,5 +137,5 @@ String _prediction(String tipo, Event data) {
         ? data.prediction!.golesLocal.toString()
         : data.prediction!.golesVisita.toString();
   }
-  return '0';
+  return '';
 }

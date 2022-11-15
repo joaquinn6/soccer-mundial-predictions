@@ -13,7 +13,9 @@ class PredictionsApiCalls {
       'userId': prediction.userId,
       'eventId': prediction.eventId,
       'golesLocal': prediction.golesLocal,
-      'golesVisita': prediction.golesVisita
+      'golesVisita': prediction.golesVisita,
+      'penales': false,
+      'tiemposExtra': false
     });
     try {
       final response = await http.post(Uri.parse('${Vars.baseUrl}prediction'),
@@ -37,13 +39,15 @@ class PredictionsApiCalls {
       'userId': prediction.userId,
       'eventId': prediction.eventId,
       'golesLocal': prediction.golesLocal,
-      'golesVisita': prediction.golesVisita
+      'golesVisita': prediction.golesVisita,
+      'penales': false,
+      'tiemposExtra': false
     });
     try {
       final response = await http.put(
           Uri.parse('${Vars.baseUrl}prediction/${prediction.id.toString()}'),
           headers: headers,
-          body: prediction.toJson());
+          body: body);
       if (response.statusCode == 200) {
         result.prediction = Prediction.fromJson(json.decode(response.body));
       } else {

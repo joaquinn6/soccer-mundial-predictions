@@ -71,6 +71,7 @@ class EventsRequests extends ChangeNotifier {
         if (response!.prediction != null) {
           eventSelected!.prediction = response.prediction;
           errorSave = '';
+          getData(userId);
         } else {
           errorSave = 'Error al guardar predicción de ${eventSelected!.versus}';
         }
