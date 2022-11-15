@@ -43,8 +43,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 24),
                   )),
               ListTile(
-                leading: const Icon(Icons.people),
-                title: const Text('Lista de Amigos'),
+                leading: Icon(
+                  Icons.people,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                title: const Text('Tabla de posiciones'),
                 subtitle: const Text('Lista de amigos con sus puntos'),
                 onTap: () => {
                   Navigator.push(
@@ -64,10 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         appBar: AppBar(
-          title: const Text('Events'),
+          title: const Text('Partidos'),
         ),
-        body: ListView.separated(
-            separatorBuilder: ((context, index) => const Divider()),
+        body: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               final evento = events.allEvents![index];
               return InkWell(
