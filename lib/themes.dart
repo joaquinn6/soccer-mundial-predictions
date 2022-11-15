@@ -6,9 +6,9 @@ ThemeData lightTheme = ThemeData(
     applyElevationOverlayColor: true,
     useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: const Color(0xFF8D1C3D),
+    primaryColor: const Color(0xFF9E3E5A),
     primarySwatch: const MaterialColor(
-      0xFF8D1C3D,
+      0xFFEBAAB0,
       <int, Color>{
         50: Color(0xFFF1E4E8),
         100: Color(0xFFDDBBC5),
@@ -26,11 +26,11 @@ ThemeData lightTheme = ThemeData(
     dividerColor: const Color(0xFFE1C396),
     textTheme: GoogleFonts.rubikTextTheme(),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF8D1C3D),
-      foregroundColor: Color(0xFFE1C396),
+      backgroundColor: Color(0xFFEBAAB0),
+      foregroundColor: Color(0xDF404041),
       systemOverlayStyle: SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
         statusBarColor: Colors.transparent,
       ),
     ),
@@ -39,7 +39,7 @@ ThemeData lightTheme = ThemeData(
     ),
     drawerTheme: const DrawerThemeData(
       elevation: 2.0,
-      backgroundColor: Color(0xFF8D1C3D),
+      backgroundColor: Color(0xFFEBAAB0),
     ));
 
 ThemeData darkTheme = ThemeData(
@@ -66,7 +66,7 @@ ThemeData darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(
       elevation: 2.0,
       backgroundColor: Color(0xFF8D1C3D),
-      foregroundColor: Color(0xFFE1C396),
+      foregroundColor: Color(0xFFFFFFFF),
       systemOverlayStyle: SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
         statusBarColor: Colors.transparent,
@@ -74,7 +74,7 @@ ThemeData darkTheme = ThemeData(
       ),
     ),
     iconTheme: const IconThemeData(
-      color: Color(0xFFB09677),
+      color: Color(0xFFFFFFFF),
     ),
     primaryColor: const Color(0xFF8D1C3D),
     textTheme: GoogleFonts.rubikTextTheme(

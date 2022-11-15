@@ -38,48 +38,46 @@ class _TableUserPageState extends State<TableUserPage> {
         appBar:
             AppBar(title: const Text('Tabla de posiciones'), actions: <Widget>[
           IconButton(
+              tooltip: 'Agregar amigo',
               icon: const Icon(Icons.person_add),
               onPressed: () {
                 openDialog(users);
               }),
         ]),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DataTable(
-                checkboxHorizontalMargin: 8.0,
-                columnSpacing: 8,
-                dividerThickness: 2,
-                columns: const <DataColumn>[
-                  DataColumn(label: Expanded(child: Text("Nombre"))),
-                  DataColumn(label: Expanded(child: Text("Puntos"))),
-                  DataColumn(label: Expanded(child: Text("Pts. Resultado"))),
-                  DataColumn(label: Expanded(child: Text("Pts. Marcador"))),
-                ],
-                rows: users.allUsers
-                    .map((user) => DataRow(cells: [
-                          DataCell(Text(
-                            user.username,
-                          )),
-                          DataCell(
-                            Text(
-                              user.total.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              user.puntosResultado.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              user.puntosMarcador.toString(),
-                            ),
-                          ),
-                        ]))
-                    .toList())
-          ],
-        ));
+        body: DataTable(
+            checkboxHorizontalMargin: 8.0,
+            columnSpacing: 8,
+            dividerThickness: 1,
+            columns: const <DataColumn>[
+              DataColumn(label: Expanded(child: Text("Nombre"))),
+              DataColumn(numeric: true, label: Expanded(child: Text("Total"))),
+              DataColumn(
+                  numeric: true, label: Expanded(child: Text("Resultado"))),
+              DataColumn(
+                  numeric: true, label: Expanded(child: Text("Marcador"))),
+            ],
+            rows: users.allUsers
+                .map((user) => DataRow(cells: [
+                      DataCell(Text(
+                        user.username,
+                      )),
+                      DataCell(
+                        Text(
+                          user.total.toString(),
+                        ),
+                      ),
+                      DataCell(
+                        Text(
+                          user.puntosResultado.toString(),
+                        ),
+                      ),
+                      DataCell(
+                        Text(
+                          user.puntosMarcador.toString(),
+                        ),
+                      ),
+                    ]))
+                .toList()));
   }
 
   Future<String?> openDialog(users) => showDialog<String>(

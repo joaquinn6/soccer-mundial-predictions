@@ -43,10 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 24),
                   )),
               ListTile(
-                leading: Icon(
-                  Icons.people,
-                  color: Theme.of(context).iconTheme.color,
-                ),
+                leading: const Icon(Icons.people),
                 title: const Text('Tabla de posiciones'),
                 subtitle: const Text('Lista de amigos con sus puntos'),
                 onTap: () => {
