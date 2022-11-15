@@ -81,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
 _showDialog(BuildContext context) {
   const dialog = EventPrediction();
-  showDialog(context: context, builder: (BuildContext context) => dialog);
+  showDialog(
+      context: context,
+      builder: (BuildContext context) => dialog,
+      barrierDismissible: false);
 }
 
 Card _cardEvent(Event data) {

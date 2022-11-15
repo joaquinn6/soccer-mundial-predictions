@@ -22,7 +22,7 @@ ThemeData lightTheme = ThemeData(
         900: Color(0xFF5D091A)
       },
     ),
-    canvasColor: const Color(0xFFFFFFFF),
+    canvasColor: const Color(0xFFF1E4E8),
     dividerColor: const Color(0xFFE1C396),
     textTheme: GoogleFonts.rubikTextTheme(),
     appBarTheme: const AppBarTheme(
@@ -35,7 +35,7 @@ ThemeData lightTheme = ThemeData(
       ),
     ),
     iconTheme: const IconThemeData(
-      color: Color(0xFFFFFFFF),
+      color: Color(0xFF000000),
     ),
     drawerTheme: const DrawerThemeData(
       elevation: 2.0,
