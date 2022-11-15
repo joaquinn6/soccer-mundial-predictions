@@ -36,7 +36,6 @@ class _EventPredictionState extends State<EventPrediction> {
       elevation: 4.0,
       child: SizedBox(
         height: 400.0,
-        width: 400.0,
         child: Form(
           key: formKey,
           child: Row(
@@ -63,144 +62,150 @@ class _EventPredictionState extends State<EventPrediction> {
               ),
               Container(
                 height: 400.0,
-                width: 200.0,
                 color: Theme.of(context).canvasColor,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Column(children: [
-                          Text(events.eventSelected!.nombreLocal),
-                          CountryFlags.flag(
-                            events.eventSelected!.isoLocal,
-                            height: 60,
-                            width: 80,
-                            borderRadius: 8,
-                          ),
-                        ]),
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 85.0,
-                            child: TextFormField(
-                              controller: events.golLocal,
-                              validator: (value) {
-                                if (value.toString().isNotEmpty &&
-                                    int.tryParse(value.toString()) == null) {
-                                  return 'No Decimal';
-                                }
-                                return null;
-                              },
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 20,
-                              ),
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).dividerColor),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 2.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2.0),
-                                  )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Column(children: [
+                            Text(events.eventSelected!.nombreLocal),
+                            CountryFlags.flag(
+                              events.eventSelected!.isoLocal,
+                              height: 60,
+                              width: 80,
+                              borderRadius: 8,
                             ),
-                          ),
-                          Text(
-                            '-',
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                color: Theme.of(context).primaryColor),
-                          ),
-                          SizedBox(
-                            width: 85.0,
-                            child: TextFormField(
-                              controller: events.golVisita,
-                              validator: (value) {
-                                if (value.toString().isNotEmpty &&
-                                    int.tryParse(value.toString()) == null) {
-                                  return 'No decimal';
-                                }
-                                return null;
-                              },
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 20,
+                          ]),
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 85.0,
+                              child: TextFormField(
+                                enabled: events.enabled,
+                                controller: events.golLocal,
+                                validator: (value) {
+                                  if (value.toString().isNotEmpty &&
+                                      int.tryParse(value.toString()) == null) {
+                                    return 'No Decimal';
+                                  }
+                                  return null;
+                                },
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 20,
+                                ),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: false, signed: false),
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Theme.of(context).dividerColor),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2.0),
+                                    )),
                               ),
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).dividerColor),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 2.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context).errorColor,
-                                        width: 2.0),
-                                  )),
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        child: Column(children: [
-                          CountryFlags.flag(
-                            events.eventSelected!.isoVisita,
-                            height: 60,
-                            width: 80,
-                            borderRadius: 8,
-                          ),
-                          Text(events.eventSelected!.nombreVisita),
-                        ]),
-                      ),
-                    ],
+                            Text(
+                              '-',
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            SizedBox(
+                              width: 85.0,
+                              child: TextFormField(
+                                enabled: events.enabled,
+                                controller: events.golVisita,
+                                validator: (value) {
+                                  if (value.toString().isNotEmpty &&
+                                      int.tryParse(value.toString()) == null) {
+                                    return 'No decimal';
+                                  }
+                                  return null;
+                                },
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 20,
+                                ),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: false, signed: false),
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Theme.of(context).dividerColor),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).errorColor,
+                                          width: 2.0),
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          child: Column(children: [
+                            CountryFlags.flag(
+                              events.eventSelected!.isoVisita,
+                              height: 60,
+                              width: 80,
+                              borderRadius: 8,
+                            ),
+                            Text(events.eventSelected!.nombreVisita),
+                          ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

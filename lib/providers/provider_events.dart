@@ -16,6 +16,7 @@ class EventsRequests extends ChangeNotifier {
   TextEditingController golLocal = TextEditingController(text: '');
   TextEditingController golVisita = TextEditingController(text: '');
   String errorSave = '';
+  bool enabled = false;
 
   getData(String idUsuario) async {
     loading = true;
@@ -87,5 +88,19 @@ class EventsRequests extends ChangeNotifier {
       golLocal.text = eventSelected!.prediccion!.golesLocal.toString();
       golVisita.text = eventSelected!.prediccion!.golesVisita.toString();
     }
+    if (DateTime.parse(eventSelected!.fecha)
+            .toLocal()
+            .compareTo(DateTime.now().toLocal()) >
+        0) {
+      enabled = true;
+    } else {
+      enabled = false;
+    }
+  }
+
+  selectEvent(int indice, Event event) {
+    eventSelected = event;
+    indexEventSelected = indice;
+    checkGoles();
   }
 }

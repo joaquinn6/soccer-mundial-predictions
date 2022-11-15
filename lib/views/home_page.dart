@@ -72,11 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
               final evento = events.allEvents![index];
               return InkWell(
                 child: _cardEvent(evento),
-                onTap: () => {
-                  events.indexEventSelected = index,
-                  events.eventSelected = evento,
-                  _showDialog(context)
-                },
+                onTap: () =>
+                    {events.selectEvent(index, evento), _showDialog(context)},
               );
             },
             itemCount: events.allEvents?.length ?? 0));
