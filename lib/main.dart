@@ -7,7 +7,8 @@ import './providers/provider_users.dart';
 import 'views/home_page.dart';
 import 'views/users_points_pages.dart';
 
-void main() {
+Future<void> main() async {
+  await Future.delayed(Duration(seconds: 3));
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => EventsRequests()),
     ChangeNotifierProvider(create: (context) => UserRequest())
