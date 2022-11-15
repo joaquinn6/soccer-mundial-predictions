@@ -61,10 +61,12 @@ class UsersApiCalls {
       } else if (response.statusCode == 409) {
         result.error = 'Usuario ya existente';
       } else {
-        print("Error");
+        result.error = 'Error de conexión';
       }
     } catch (e) {
       log(e.toString());
+      result.error = 'Error de conexión';
+      return result;
     }
     return result;
   }
