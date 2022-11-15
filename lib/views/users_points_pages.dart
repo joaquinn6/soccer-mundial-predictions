@@ -51,7 +51,6 @@ class _TableUserPageState extends State<TableUserPage> {
                 columnSpacing: 8,
                 dividerThickness: 2,
                 columns: const <DataColumn>[
-                  DataColumn(label: Expanded(child: Text("Avatar"))),
                   DataColumn(label: Expanded(child: Text("Nombre"))),
                   DataColumn(label: Expanded(child: Text("Puntos"))),
                   DataColumn(label: Expanded(child: Text("Pts. Resultado"))),
@@ -59,14 +58,6 @@ class _TableUserPageState extends State<TableUserPage> {
                 ],
                 rows: users.allUsers
                     .map((user) => DataRow(cells: [
-                          DataCell(
-                            CountryFlags.flag(
-                              user.avatar.toLowerCase(),
-                              height: 25,
-                              width: 25,
-                              borderRadius: 100,
-                            ),
-                          ),
                           DataCell(Text(
                             user.username,
                           )),
