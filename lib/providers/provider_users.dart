@@ -19,6 +19,7 @@ class UserRequest extends ChangeNotifier {
   // ! Shared Preferences
   String idLogged = "";
   bool isLogged = false;
+  String userLogged = '';
 
   // ! post user
   bool isCreated = false;
@@ -66,6 +67,7 @@ class UserRequest extends ChangeNotifier {
       UserPreference.setUserId(responseUsuario!.usuario!.id);
       isLogged = true;
       idLogged = (responseUsuario!.usuario!.id);
+      userLogged = responseUsuario!.usuario!.username;
       errorPost = '';
     } else if (responseUsuario!.error != null) {
       errorPost = responseUsuario!.error!;
