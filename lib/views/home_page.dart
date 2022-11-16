@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               )),
               SizedBox(
-                  height: 100,
+                  height: 120,
                   child: ListView(
                     children: [
                       const Divider(),
@@ -80,17 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         leading: const Icon(Icons.logout),
                         title: const Text('Cerrar Sesión'),
                         onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TableUserPage()))
+                          _logout()
                         },
                       ),
                       ListTile(
                         leading: const Icon(Icons.delete_sharp),
                         title: const Text('Eliminar cuenta'),
-                        subtitle:
-                            const Text('Esta opción elimira el usuario por completo'),
                         onTap: () => {deleteUser()},
                       )
                     ],
@@ -118,17 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
     response.then((value) => {
       if(value=="OK"){
         _showToast("Usuario borrado correctamente","success"),
-        user.clearUserPreferences(),
-        Navigator.of(context).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false),
-        /* Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserPage())) */
+        _logout()
       }else{
         Navigator.of(context, rootNavigator: true).pop(response),
         _showToast("Ha ocurrido un error al borrar usuario","error")
       }
     });
+  }
+  _logout(){
+    user.clearUserPreferences();
+    Navigator.of(context).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
   }
   _showToast(String msg, String tipo) {
     Color color;
