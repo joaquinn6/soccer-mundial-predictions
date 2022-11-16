@@ -4,7 +4,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -25,6 +25,7 @@ dependencies:
   flutter_form_builder: ^7.7.0
   form_builder_validators: ^8.4.0
   flutter_native_splash: ^2.2.14
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -41,8 +42,8 @@ flutter_icons:
   web:
     generate: true
     image_path: "assets\\icon\\icon.jpg"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    background_color: "#8D1C3D"
+    theme_color: "#8D1C3D"
   windows:
     generate: true
     image_path: "assets\\icon\\icon.jpg"
@@ -50,12 +51,16 @@ flutter_icons:
 
 flutter:
   uses-material-design: true
-
-
+  assets:
+    - assets/flags/
 
 flutter_native_splash:
-  color: "#8D1B3D"
   image: assets/icon/icon.png
+  color: "#EBAAB0"
+  color_dark: "#8D1B3D"
   android_12:
-    icon_background_color: "#8D1B3D"
-    image: assets/icon/icon.png
+    icon_background_color: "#EBAAB0"
+    icon_background_color_dark: "#8D1B3D"
+    image: assets/icon/1142.png
+
+  fullscreen: true

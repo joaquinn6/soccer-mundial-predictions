@@ -1,8 +1,8 @@
 import 'package:app_mundial/providers/provider_users.dart';
-import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../entities/usuario.dart';
 
 class TableUserPage extends StatefulWidget {
   const TableUserPage({super.key});
@@ -38,53 +38,32 @@ class _TableUserPageState extends State<TableUserPage> {
         appBar:
             AppBar(title: const Text('Tabla de posiciones'), actions: <Widget>[
           IconButton(
+              tooltip: 'Agregar amigo',
               icon: const Icon(Icons.person_add),
               onPressed: () {
                 openDialog(users);
               }),
         ]),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DataTable(
-                checkboxHorizontalMargin: 8.0,
-                columnSpacing: 8,
-                dividerThickness: 2,
-                columns: const <DataColumn>[
-                  DataColumn(label: Expanded(child: Text("Nombre"))),
-                  DataColumn(label: Expanded(child: Text("Puntos"))),
-                  DataColumn(label: Expanded(child: Text("Pts. Resultado"))),
-                  DataColumn(label: Expanded(child: Text("Pts. Marcador"))),
-                ],
-                rows: users.allUsers
-                    .map((user) => DataRow(cells: [
-                          DataCell(Text(
-                            user.username,
-                          )),
-                          DataCell(
-                            Text(
-                              user.total.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              user.puntosResultado.toString(),
-                            ),
-                          ),
-                          DataCell(
-                            Text(
-                              user.puntosMarcador.toString(),
-                            ),
-                          ),
-                        ]))
-                    .toList())
+        body: DataTable(
+          checkboxHorizontalMargin: 8.0,
+          columnSpacing: 8,
+          dividerThickness: 1,
+          columns: const <DataColumn>[
+            DataColumn(numeric: true, label: Expanded(child: Text("#"))),
+            DataColumn(label: Expanded(child: Text("Nombre"))),
+            DataColumn(numeric: true, label: Expanded(child: Text("Total"))),
+            DataColumn(
+                numeric: true, label: Expanded(child: Text("Resultado"))),
+            DataColumn(numeric: true, label: Expanded(child: Text("Marcador"))),
           ],
+          rows: _listsRows(users.allUsers),
         ));
   }
 
   Future<String?> openDialog(users) => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
+            backgroundColor: Theme.of(context).canvasColor,
             title: const Text('Agregar amigo'),
             content: TextField(
               decoration: const InputDecoration(
@@ -169,4 +148,37 @@ class _TableUserPageState extends State<TableUserPage> {
       toastDuration: const Duration(seconds: 2),
     );
   }
+}
+
+List<DataRow> _listsRows(List<Usuario> usuarios) {
+  List<DataRow> rows = [];
+  int index = 0;
+  for (var user in usuarios) {
+    DataRow row = DataRow(cells: [
+      DataCell(Text(
+        (index + 1).toString(),
+      )),
+      DataCell(Text(
+        user.username,
+      )),
+      DataCell(
+        Text(
+          user.total.toString(),
+        ),
+      ),
+      DataCell(
+        Text(
+          user.puntosResultado.toString(),
+        ),
+      ),
+      DataCell(
+        Text(
+          user.puntosMarcador.toString(),
+        ),
+      ),
+    ]);
+    rows.add(row);
+    index++;
+  }
+  return rows;
 }
