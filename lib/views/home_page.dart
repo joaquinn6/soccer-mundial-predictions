@@ -71,11 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               )),
-              const Divider(),
-              Container(
+              SizedBox(
                   height: 100,
                   child: ListView(
                     children: [
+                      const Divider(),
                       ListTile(
                         leading: const Icon(Icons.logout),
                         title: const Text('Cerrar Sesión'),
