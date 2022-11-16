@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               )),
-              Container(
+              SizedBox(
                   height: 100,
                   child: ListView(
                     children: [
