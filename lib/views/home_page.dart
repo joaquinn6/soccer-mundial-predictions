@@ -30,17 +30,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final events = Provider.of<EventsRequests>(context);
+    final user = Provider.of<UserRequest>(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
         drawer: Drawer(
           semanticLabel: 'Menu de opciones',
           child: Column(
             children: [
-              const DrawerHeader(
-                  decoration: BoxDecoration(),
+              DrawerHeader(
+                  decoration: const BoxDecoration(),
                   child: Text(
-                    'Opciones',
-                    style: TextStyle(fontSize: 24),
+                    user.userLogged,
+                    style: const TextStyle(fontSize: 24),
                   )),
               Expanded(
                   child: ListView(
