@@ -63,6 +63,7 @@ class _TableUserPageState extends State<TableUserPage> {
   Future<String?> openDialog(users) => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
+            backgroundColor: Theme.of(context).canvasColor,
             title: const Text('Agregar amigo'),
             content: TextField(
               decoration: const InputDecoration(
