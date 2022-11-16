@@ -42,8 +42,8 @@ flutter_icons:
   web:
     generate: true
     image_path: "assets\\icon\\icon.jpg"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    background_color: "#8D1C3D"
+    theme_color: "#8D1C3D"
   windows:
     generate: true
     image_path: "assets\\icon\\icon.jpg"
@@ -61,4 +61,6 @@ flutter_native_splash:
   android_12:
     icon_background_color: "#EBAAB0"
     icon_background_color_dark: "#8D1B3D"
-    image: assets/icon/icon.png
+    image: assets/icon/1142.png
+
+  fullscreen: true
