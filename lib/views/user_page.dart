@@ -45,8 +45,15 @@ class _UserPageState extends State<UserPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text("Registro",
-                    style: Theme.of(context).textTheme.headline2),
+                child: Text("Registro o Login",
+                    style: Theme.of(context).textTheme.headline6),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'Si no tiene una cuenta se creara una, si ya tiene una cuenta, escribe los mismos datos y se logueara',
+                  textAlign: TextAlign.center,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(18.0),

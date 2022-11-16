@@ -73,16 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               )),
               SizedBox(
-                  height: 120,
+                  height: 160,
                   child: ListView(
                     children: [
                       const Divider(),
                       ListTile(
                         leading: const Icon(Icons.logout),
                         title: const Text('Cerrar Sesión'),
-                        onTap: () => {
-                          _logout()
-                        },
+                        onTap: () => {_logout()},
                       ),
                       ListTile(
                         leading: const Icon(Icons.delete_sharp),
@@ -107,24 +105,27 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
             itemCount: events.allEvents?.length ?? 0));
+  }
 
-  }
-  void deleteUser(){
-    final Future<String> response=user.deleteUser();
+  void deleteUser() {
+    final Future<String> response = user.deleteUser();
     response.then((value) => {
-      if(value=="OK"){
-        _showToast("Usuario borrado correctamente","success"),
-        _logout()
-      }else{
-        Navigator.of(context, rootNavigator: true).pop(response),
-        _showToast("Ha ocurrido un error al borrar usuario","error")
-      }
-    });
+          if (value == "OK")
+            {_showToast("Usuario borrado correctamente", "success"), _logout()}
+          else
+            {
+              Navigator.of(context, rootNavigator: true).pop(response),
+              _showToast("Ha ocurrido un error al borrar usuario", "error")
+            }
+        });
   }
-  _logout(){
+
+  _logout() {
     user.clearUserPreferences();
-    Navigator.of(context).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
   }
+
   _showToast(String msg, String tipo) {
     Color color;
     IconData icono;
@@ -162,83 +163,82 @@ class _MyHomePageState extends State<MyHomePage> {
       gravity: ToastGravity.TOP,
       toastDuration: const Duration(seconds: 2),
     );
-}
+  }
 
-_showDialog(BuildContext context) {
-  const dialog = EventPrediction();
-  showDialog(
-      context: context,
-      builder: (BuildContext context) => dialog,
-      barrierDismissible: false);
-}
+  _showDialog(BuildContext context) {
+    const dialog = EventPrediction();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => dialog,
+        barrierDismissible: false);
+  }
 
-Card _cardEvent(Event data) {
-  return Card(
-      child: Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(children: [
-      Center(child: Text(data.versus)),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _flagShow(data.isoLocal, data.nombreLocal),
-          Text(_prediction('local', data)),
-          Text(
-            _marcador(data),
-            style: const TextStyle(fontSize: 30),
-          ),
-          Text(_prediction('visita', data)),
-          _flagShow(data.isoVisita, data.nombreVisita),
-        ],
-      ),
-      Text(_formatDate(data.fecha))
-    ]),
-  ));
-}
-
-Widget _flagShow(String iso, String name) {
-  if (iso != 'XX') {
-    return CountryFlags.flag(
-      iso,
-      height: 60,
-      width: 80,
-      borderRadius: 8,
-    );
-  } else {
-    return SizedBox(
-      height: 60,
-      width: 80,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        child: SvgPicture.asset(
-          'assets/flags/$name.svg',
-          semanticsLabel: 'bandera',
-          fit: BoxFit.fill,
+  Card _cardEvent(Event data) {
+    return Card(
+        child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: [
+        Center(child: Text(data.versus)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _flagShow(data.isoLocal, data.nombreLocal),
+            Text(_prediction('local', data)),
+            Text(
+              _marcador(data),
+              style: const TextStyle(fontSize: 30),
+            ),
+            Text(_prediction('visita', data)),
+            _flagShow(data.isoVisita, data.nombreVisita),
+          ],
         ),
-      ),
-    );
+        Text(_formatDate(data.fecha))
+      ]),
+    ));
   }
-}
 
-String _marcador(Event data) {
-  String local = '-', visita = '-';
-  if (data.golesLocal != null) local = data.golesLocal.toString();
-  if (data.golesVisita != null) visita = data.golesVisita.toString();
-  return local + '-'.toString() + visita;
-}
-
-String _formatDate(String hora) {
-  return DateFormat('dd-MM-yyyy – hh:mm aa')
-      .format(DateTime.parse(hora).toLocal());
-}
-
-String _prediction(String tipo, Event data) {
-  if (data.prediction != null) {
-    return tipo == 'local'
-        ? data.prediction!.golesLocal.toString()
-        : data.prediction!.golesVisita.toString();
+  Widget _flagShow(String iso, String name) {
+    if (iso != 'XX') {
+      return CountryFlags.flag(
+        iso,
+        height: 60,
+        width: 80,
+        borderRadius: 8,
+      );
+    } else {
+      return SizedBox(
+        height: 60,
+        width: 80,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          child: SvgPicture.asset(
+            'assets/flags/$name.svg',
+            semanticsLabel: 'bandera',
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
+    }
   }
-  return '';
-}
 
+  String _marcador(Event data) {
+    String local = '-', visita = '-';
+    if (data.golesLocal != null) local = data.golesLocal.toString();
+    if (data.golesVisita != null) visita = data.golesVisita.toString();
+    return local + '-'.toString() + visita;
+  }
+
+  String _formatDate(String hora) {
+    return DateFormat('dd-MM-yyyy – hh:mm aa')
+        .format(DateTime.parse(hora).toLocal());
+  }
+
+  String _prediction(String tipo, Event data) {
+    if (data.prediction != null) {
+      return tipo == 'local'
+          ? data.prediction!.golesLocal.toString()
+          : data.prediction!.golesVisita.toString();
+    }
+    return '';
+  }
 }
