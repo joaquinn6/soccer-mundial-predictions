@@ -36,7 +36,7 @@ class _UserPageState extends State<UserPage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(title: const Text('Usuario')),
+      appBar: AppBar(title: const Text('Registro de usuario')),
       body: FormBuilder(
           key: _formKey,
           child: Column(
