@@ -13,6 +13,7 @@ Future<void> main() async {
   SharedPreferences prefs =await SharedPreferences.getInstance();
   var userId=prefs.getString("userId")??'';
   var isLogged=userId!='';
+  await Future.delayed(const Duration(seconds: 2));
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => EventsRequests()),
     ChangeNotifierProvider(create: (context) => UserRequest())
