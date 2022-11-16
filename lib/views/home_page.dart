@@ -34,33 +34,55 @@ class _MyHomePageState extends State<MyHomePage> {
         extendBodyBehindAppBar: true,
         drawer: Drawer(
           semanticLabel: 'Menu de opciones',
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
+          child: Column(
+            children: [
               const DrawerHeader(
                   decoration: BoxDecoration(),
                   child: Text(
                     'Opciones',
                     style: TextStyle(fontSize: 24),
                   )),
-              ListTile(
-                leading: const Icon(Icons.people),
-                title: const Text('Tabla de posiciones'),
-                subtitle: const Text('Lista de amigos con sus puntos'),
-                onTap: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TableUserPage()))
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Información'),
-                subtitle:
-                    const Text('Funcionamiento y reglamento de la aplicación'),
-                onTap: () => {print('Información')},
-              ),
+              Expanded(
+                  child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.people),
+                    title: const Text('Tabla de posiciones'),
+                    subtitle: const Text('Lista de amigos con sus puntos'),
+                    onTap: () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TableUserPage()))
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text('Información'),
+                    subtitle: const Text(
+                        'Funcionamiento y reglamento de la aplicación'),
+                    onTap: () => {print('Información')},
+                  ),
+                ],
+              )),
+              const Divider(),
+              Container(
+                  height: 100,
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.logout),
+                        title: const Text('Cerrar Sesión'),
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TableUserPage()))
+                        },
+                      )
+                    ],
+                  )),
             ],
           ),
         ),
