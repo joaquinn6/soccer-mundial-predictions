@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../entities/event.dart';
 import '../entities/prediction.dart';
@@ -20,7 +21,9 @@ class EventsRequests extends ChangeNotifier {
 
   getData(String idUsuario) async {
     loading = true;
-    allEvents = (await EventsApiCalls().getEventList(idUsuario));
+    SharedPreferences prefs =await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId")??'';
+    allEvents = (await EventsApiCalls().getEventList(userId));
     loading = false;
     notifyListeners();
   }
