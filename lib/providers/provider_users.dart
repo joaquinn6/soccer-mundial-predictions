@@ -1,5 +1,6 @@
 import 'package:app_mundial/models/response.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../entities/usuario.dart';
 import '../services/service_user.dart';
 
@@ -39,6 +40,11 @@ class UserRequest extends ChangeNotifier {
     return amigoResponse;
   }
 
+  Future<String> deleteUser()async{
+    var deleteResponse= (await UserRequestApi.deleteUser(idLogged));
+    return deleteResponse;
+  }
+
   checkLogin() async {
     idLogged = (await UserPreference.getUserId());
     if (idLogged.isEmpty) {
@@ -47,6 +53,10 @@ class UserRequest extends ChangeNotifier {
       isLogged = true;
     }
     notifyListeners();
+  }
+  clearUserPreferences() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
   }
 
   Future<Response?> register(String username, String email) async {

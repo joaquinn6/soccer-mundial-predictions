@@ -1,8 +1,10 @@
 import 'package:app_mundial/entities/event.dart';
 import 'package:app_mundial/providers/provider_events.dart';
 import 'package:app_mundial/providers/provider_users.dart';
+import 'package:app_mundial/views/user_page.dart';
 import 'package:app_mundial/views/users_points_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:intl/intl.dart';
@@ -18,13 +20,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late UserRequest user;
+  late FToast fToast;
   @override
   void initState() {
     super.initState();
     final events = Provider.of<EventsRequests>(context, listen: false);
-    final user = Provider.of<UserRequest>(context, listen: false);
-
+    user = Provider.of<UserRequest>(context, listen: false);
     events.getData(user.idLogged);
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
@@ -61,6 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text('Funcionamiento y reglamento de la aplicación'),
                 onTap: () => {print('Información')},
               ),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('Eliminar cuenta'),
+                subtitle:
+                    const Text('Esta opción elimira el usuario por completo'),
+                onTap: () => {deleteUser()},
+              ),
             ],
           ),
         ),
@@ -77,7 +89,62 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
             itemCount: events.allEvents?.length ?? 0));
+
   }
+  void deleteUser(){
+    final Future<String> response=user.deleteUser();
+    response.then((value) => {
+      if(value=="OK"){
+        _showToast("Usuario borrado correctamente","success"),
+        user.clearUserPreferences(),
+        Navigator.of(context).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false),
+        /* Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserPage())) */
+      }else{
+        Navigator.of(context, rootNavigator: true).pop(response),
+        _showToast("Ha ocurrido un error al borrar usuario","error")
+      }
+    });
+  }
+  _showToast(String msg, String tipo) {
+    Color color;
+    IconData icono;
+    if (tipo == "error") {
+      color = Color.fromARGB(151, 231, 20, 20);
+      icono = Icons.error;
+    } else if (tipo == "success") {
+      color = Colors.greenAccent;
+      icono = Icons.check;
+    } else {
+      color = Color.fromARGB(136, 226, 241, 14);
+      icono = Icons.warning;
+    }
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: color,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icono),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Expanded(
+            child: Text(style: const TextStyle(color: Colors.black), msg),
+          )
+        ],
+      ),
+    );
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: const Duration(seconds: 2),
+    );
 }
 
 _showDialog(BuildContext context) {
@@ -155,4 +222,6 @@ String _prediction(String tipo, Event data) {
         : data.prediction!.golesVisita.toString();
   }
   return '';
+}
+
 }
