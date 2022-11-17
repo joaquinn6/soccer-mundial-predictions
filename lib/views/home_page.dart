@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ListTile(
                         leading: const Icon(Icons.delete_sharp),
                         title: const Text('Eliminar cuenta'),
-                        onTap: () => {deleteUser()},
+                        onTap: () => {confirmacionDelete()},
                       )
                     ],
                   )),
@@ -106,7 +106,26 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             itemCount: events.allEvents?.length ?? 0));
   }
-
+  Future<String?> confirmacionDelete() => showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+            backgroundColor: Theme.of(context).canvasColor,
+            title: const Text('Esta seguro de eliminar la cuenta?'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    cerrarDialogo("");
+                  },
+                  child: const Text('Cancelar')),
+              TextButton(
+                  style:
+                      TextButton.styleFrom(foregroundColor: Colors.lightBlue),
+                  onPressed: () {
+                    deleteUser();
+                  },
+                  child: const Text('Aceptar')),
+            ],
+          ));
   void deleteUser() {
     final Future<String> response = user.deleteUser();
     response.then((value) => {
@@ -119,7 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
             }
         });
   }
-
+  void cerrarDialogo(String response) {
+    Navigator.of(context, rootNavigator: true).pop(response);
+  }
   _logout() {
     user.clearUserPreferences();
     Navigator.of(context)
