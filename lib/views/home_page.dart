@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: const Text('Información'),
                 subtitle:
                     const Text('Funcionamiento y reglamento de la aplicación'),
-                onTap: () => {print('Información')},
+                onTap: () => {Navigator.of(context).pushNamed("/about")},
               ),
             ],
           ),

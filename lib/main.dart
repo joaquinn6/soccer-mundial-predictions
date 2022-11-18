@@ -7,6 +7,7 @@ import './providers/provider_events.dart';
 import './providers/provider_users.dart';
 import 'views/home_page.dart';
 import 'views/users_points_pages.dart';
+import 'views/about.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         "/": (BuildContext context) =>
             isLogged ? const MyHomePage() : const UserPage(),
         "/user-table": (BuildContext context) => const TableUserPage(),
-        "/homepage": (BuildContext context) => const MyHomePage()
+        "/homepage": (BuildContext context) => const MyHomePage(),
+        "/about": (BuildContext context) => const AboutPage()
       },
     );
   }
