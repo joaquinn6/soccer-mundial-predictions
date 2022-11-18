@@ -42,16 +42,19 @@ class _MyHomePageState extends State<MyHomePage> {
           semanticLabel: 'Menu de opciones',
           child: Column(
             children: [
-              DrawerHeader(
-                  decoration: const BoxDecoration(),
-                  child: Text(
-                    user.userLogged,
-                    style: const TextStyle(fontSize: 24),
-                  )),
               Expanded(
                   child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DrawerHeader(
+                        decoration: const BoxDecoration(),
+                        child: Text(
+                          user.userLogged,
+                          style: const TextStyle(fontSize: 24),
+                        )),
+                  ),
                   ListTile(
                     leading: const Icon(Icons.people),
                     title: const Text('Tabla de posiciones'),
@@ -73,10 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               )),
               SizedBox(
-                  height: 160,
+                  height: 178,
                   child: ListView(
                     children: [
-                      const Divider(),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Divider(),
+                      ),
                       ListTile(
                         leading: const Icon(Icons.logout),
                         title: const Text('Cerrar sesión'),
@@ -106,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             itemCount: events.allEvents?.length ?? 0));
   }
+
   Future<String?> confirmacionDelete() => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
@@ -138,9 +145,11 @@ class _MyHomePageState extends State<MyHomePage> {
             }
         });
   }
+
   void cerrarDialogo(String response) {
     Navigator.of(context, rootNavigator: true).pop(response);
   }
+
   _logout() {
     user.clearUserPreferences();
     Navigator.of(context)
