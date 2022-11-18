@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (BuildContext context) =>
             isLogged ? const MyHomePage() : const UserPage(),
+        "/login":(BuildContext context) => const UserPage(),
         "/user-table": (BuildContext context) => const TableUserPage(),
         "/homepage": (BuildContext context) => const MyHomePage(),
         "/about": (BuildContext context) => const AboutPage()

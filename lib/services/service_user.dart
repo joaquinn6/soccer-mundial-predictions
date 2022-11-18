@@ -70,6 +70,24 @@ class UsersApiCalls {
     }
     return result;
   }
+  Future<String> deleteUser(String idLogged) async{
+    var deleteUser="";
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    try {
+      final response = await http.delete(Uri.parse("${Vars.baseUrl}user/$idLogged/delete"),
+          headers: headers);
+      if (response.statusCode == 200) {
+        deleteUser="OK";
+      }else{
+        deleteUser="KO";
+      }
+    } catch (e) {
+      log(e.toString());
+      deleteUser="KO";
+      return deleteUser;
+    }
+      return deleteUser;
+  }
 }
 
 class UserPreferences {
