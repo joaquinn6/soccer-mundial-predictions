@@ -41,13 +41,14 @@ class UserRequest extends ChangeNotifier {
     return amigoResponse;
   }
 
-  Future<String> deleteUser()async{
-    var deleteResponse= (await UserRequestApi.deleteUser(idLogged));
+  Future<String> deleteUser() async {
+    var deleteResponse = (await UserRequestApi.deleteUser(idLogged));
     return deleteResponse;
   }
 
   checkLogin() async {
     idLogged = (await UserPreference.getUserId());
+    userLogged = (await UserPreference.getUserName());
     if (idLogged.isEmpty) {
       isLogged = false;
     } else {
@@ -55,6 +56,7 @@ class UserRequest extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   clearUserPreferences() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
@@ -67,6 +69,7 @@ class UserRequest extends ChangeNotifier {
       UserPreference.setUserId(responseUsuario!.usuario!.id);
       isLogged = true;
       idLogged = (responseUsuario!.usuario!.id);
+      UserPreference.setUserName(responseUsuario!.usuario!.username);
       userLogged = responseUsuario!.usuario!.username;
       errorPost = '';
     } else if (responseUsuario!.error != null) {

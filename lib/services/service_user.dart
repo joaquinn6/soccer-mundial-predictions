@@ -70,23 +70,25 @@ class UsersApiCalls {
     }
     return result;
   }
-  Future<String> deleteUser(String idLogged) async{
-    var deleteUser="";
+
+  Future<String> deleteUser(String idLogged) async {
+    var deleteUser = "";
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
-      final response = await http.delete(Uri.parse("${Vars.baseUrl}user/$idLogged/delete"),
+      final response = await http.delete(
+          Uri.parse("${Vars.baseUrl}user/$idLogged/delete"),
           headers: headers);
       if (response.statusCode == 200) {
-        deleteUser="OK";
-      }else{
-        deleteUser="KO";
+        deleteUser = "OK";
+      } else {
+        deleteUser = "KO";
       }
     } catch (e) {
       log(e.toString());
-      deleteUser="KO";
+      deleteUser = "KO";
       return deleteUser;
     }
-      return deleteUser;
+    return deleteUser;
   }
 }
 
@@ -100,5 +102,16 @@ class UserPreferences {
   void setUserId(String userId) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setString('userId', userId);
+  }
+
+  Future<String> getUserName() async {
+    final pref = await SharedPreferences.getInstance();
+    final userName = pref.getString('userName') ?? '';
+    return userName;
+  }
+
+  void setUserName(String userName) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString('userName', userName);
   }
 }
