@@ -29,11 +29,11 @@ class _AboutPageState extends State<AboutPage> {
           children: [
             const Text(
               '''
-¡Hola Mundo!, ¿Cómo están? espero que bien, le venimos a presentar nuestra nueva app de predicciones para que puedan competir con sus amigos, demostrando quien sabe más de futbol.
+¡Hola Mundo!, ¿Cómo están? espero que bien, les venimos a presentar nuestra nueva aplicación de predicciones para que puedan competir con sus amigos, demostrando quién sabe más de futbol.
 
-Pondrán sus predicciones en cada partido disputado en el mundial. Si logras acertar en el resultado ganaras un punto y si lograr acertar el marcador ganaras un punto extra.
+Pondrán sus predicciones en cada partido (antes de iniciar) disputado en el mundial. Si logras acertar el resultado ganarás un punto y si además aciertas el marcador ganarás otro punto.
 
-Si llegaste hasta aquí es porque ya te has registrado, podrás ver tus puntos acumulados en la tabla de posiciones, donde también podrás agregar a tus amigos por su nombre de usuario y ver quien conoce mejor a las selecciones que están disputando Qatar 2022.
+Si llegaste hasta aquí es porque ya te has registrado, podrás ver tus puntos acumulados en la tabla de posiciones, donde también podrás agregar a tus amigos por su nombre de usuario y ver quién conoce mejor a las selecciones que están disputando Qatar 2022.
                   ''',
               textAlign: TextAlign.justify,
             ),
