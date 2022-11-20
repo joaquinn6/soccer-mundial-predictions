@@ -29,7 +29,7 @@ class _AboutPageState extends State<AboutPage> {
           children: [
             const Text(
               '''
-¡Hola Mundo!, ¿Cómo están? espero que bien, les venimos a presentar nuestra nueva aplicación de predicciones para que puedan competir con sus amigos, demostrando quién sabe más de futbol.
+¡Hola Mundo!, ¿Cómo están? espero que bien, les venimos a presentar nuestra nueva aplicación de predicciones para que puedan competir con sus amigos, demostrando quién sabe más de fútbol.
 
 Pondrán sus predicciones en cada partido (antes de iniciar) disputado en el mundial. Si logras acertar el resultado ganarás un punto y si además aciertas el marcador ganarás otro punto.
 
