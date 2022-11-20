@@ -44,19 +44,23 @@ class _TableUserPageState extends State<TableUserPage> {
                 openDialog(users);
               }),
         ]),
-        body: DataTable(
-          checkboxHorizontalMargin: 8.0,
-          columnSpacing: 8,
-          dividerThickness: 1,
-          columns: const <DataColumn>[
-            DataColumn(numeric: true, label: Expanded(child: Text("#"))),
-            DataColumn(label: Expanded(child: Text("Nombre"))),
-            DataColumn(numeric: true, label: Expanded(child: Text("Total"))),
-            DataColumn(
-                numeric: true, label: Expanded(child: Text("Resultado"))),
-            DataColumn(numeric: true, label: Expanded(child: Text("Marcador"))),
-          ],
-          rows: _listsRows(users.allUsers),
+        body: InteractiveViewer(
+          constrained: false,
+          child: DataTable(
+            checkboxHorizontalMargin: 8.0,
+            columnSpacing: 8,
+            dividerThickness: 1,
+            columns: const <DataColumn>[
+              DataColumn(numeric: true, label: Expanded(child: Text("#"))),
+              DataColumn(label: Expanded(child: Text("Nombre"))),
+              DataColumn(numeric: true, label: Expanded(child: Text("Total"))),
+              DataColumn(
+                  numeric: true, label: Expanded(child: Text("Resultado"))),
+              DataColumn(
+                  numeric: true, label: Expanded(child: Text("Marcador"))),
+            ],
+            rows: _listsRows(users.allUsers),
+          ),
         ));
   }
 
