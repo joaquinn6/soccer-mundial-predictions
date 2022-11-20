@@ -36,88 +36,91 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final events = Provider.of<EventsRequests>(context);
     final user = Provider.of<UserRequest>(context);
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        drawer: Drawer(
-          semanticLabel: 'Menu de opciones',
-          child: Column(
-            children: [
-              Expanded(
-                  child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DrawerHeader(
-                        decoration: const BoxDecoration(),
-                        child: Text(
-                          user.userLogged,
-                          style: const TextStyle(fontSize: 24),
-                        )),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.people),
-                    title: const Text('Tabla de posiciones'),
-                    subtitle: const Text('Lista de amigos con sus puntos'),
-                    onTap: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TableUserPage()))
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.info),
-                    title: const Text('Información'),
-                    subtitle: const Text(
-                        'Funcionamiento y reglamento de la aplicación'),
-                    onTap: () => {Navigator.of(context).pushNamed("/about")},
-                  ),
-                ],
-              )),
-              SizedBox(
-                  height: 178,
-                  child: ListView(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Divider(),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.logout),
-                        title: const Text('Cerrar sesión'),
-                        onTap: () => {_logout()},
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.delete_sharp),
-                        title: const Text('Eliminar cuenta'),
-                        onTap: () => {confirmacionDelete()},
-                      )
-                    ],
-                  )),
-            ],
+    return Semantics(
+      label: "Lista de predicciones",
+      child: Scaffold(
+          extendBodyBehindAppBar: true,
+          drawer: Drawer(
+            semanticLabel: 'Menu de opciones',
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DrawerHeader(
+                          decoration: const BoxDecoration(),
+                          child: Text(
+                            user.userLogged,
+                            style: const TextStyle(fontSize: 24),
+                          )),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.people),
+                      title: const Text('Tabla de posiciones'),
+                      subtitle: const Text('Lista de amigos con sus puntos'),
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TableUserPage()))
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.info),
+                      title: const Text('Información'),
+                      subtitle: const Text(
+                          'Funcionamiento y reglamento de la aplicación'),
+                      onTap: () => {Navigator.of(context).pushNamed("/about")},
+                    ),
+                  ],
+                )),
+                SizedBox(
+                    height: 178,
+                    child: ListView(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Divider(),
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.logout),
+                          title: const Text('Cerrar sesión'),
+                          onTap: () => {_logout()},
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.delete_sharp),
+                          title: const Text('Eliminar cuenta'),
+                          onTap: () => {confirmacionDelete()},
+                        )
+                      ],
+                    )),
+              ],
+            ),
           ),
-        ),
-        appBar: AppBar(
-          title: const Text('Partidos'),
-        ),
-        body: ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              final evento = events.allEvents![index];
-              return InkWell(
-                child: _cardEvent(evento),
-                onTap: () =>
-                    {events.selectEvent(index, evento), _showDialog(context)},
-              );
-            },
-            itemCount: events.allEvents?.length ?? 0));
+          appBar: AppBar(
+            title: const Text('Partidos'),
+          ),
+          body: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                final evento = events.allEvents![index];
+                return InkWell(
+                  child: _cardEvent(evento),
+                  onTap: () =>
+                      {events.selectEvent(index, evento), _showDialog(context)},
+                );
+              },
+              itemCount: events.allEvents?.length ?? 0)),
+    );
   }
 
   Future<String?> confirmacionDelete() => showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
             backgroundColor: Theme.of(context).canvasColor,
-            title: const Text('Esta seguro de eliminar la cuenta?'),
+            title: const Text('¿Está seguro de eliminar la cuenta?'),
             actions: [
               TextButton(
                   onPressed: () {

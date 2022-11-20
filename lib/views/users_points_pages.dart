@@ -34,34 +34,42 @@ class _TableUserPageState extends State<TableUserPage> {
   @override
   Widget build(BuildContext context) {
     final users = Provider.of<UserRequest>(context);
-    return Scaffold(
-        appBar:
-            AppBar(title: const Text('Tabla de posiciones'), actions: <Widget>[
-          IconButton(
-              tooltip: 'Agregar amigo',
-              icon: const Icon(Icons.person_add),
-              onPressed: () {
-                openDialog(users);
-              }),
-        ]),
-        body: InteractiveViewer(
-          constrained: false,
-          child: DataTable(
-            checkboxHorizontalMargin: 8.0,
-            columnSpacing: 8,
-            dividerThickness: 1,
-            columns: const <DataColumn>[
-              DataColumn(numeric: true, label: Expanded(child: Text("#"))),
-              DataColumn(label: Expanded(child: Text("Nombre"))),
-              DataColumn(numeric: true, label: Expanded(child: Text("Total"))),
-              DataColumn(
-                  numeric: true, label: Expanded(child: Text("Resultado"))),
-              DataColumn(
-                  numeric: true, label: Expanded(child: Text("Marcador"))),
-            ],
-            rows: _listsRows(users.allUsers),
-          ),
-        ));
+    return Semantics(
+      label: "Tabla de posiciones",
+      child: Scaffold(
+          appBar: AppBar(
+              title: const Text('Tabla de posiciones'),
+              actions: <Widget>[
+                IconButton(
+                    tooltip: 'Agregar amigo',
+                    icon: const Icon(Icons.person_add),
+                    onPressed: () {
+                      openDialog(users);
+                    }),
+              ]),
+          body: InteractiveViewer(
+            constrained: false,
+            child: Semantics(
+              readOnly: true,
+              child: DataTable(
+                checkboxHorizontalMargin: 8.0,
+                columnSpacing: 8,
+                dividerThickness: 1,
+                columns: const <DataColumn>[
+                  DataColumn(numeric: true, label: Expanded(child: Text("#"))),
+                  DataColumn(label: Expanded(child: Text("Nombre"))),
+                  DataColumn(
+                      numeric: true, label: Expanded(child: Text("Total"))),
+                  DataColumn(
+                      numeric: true, label: Expanded(child: Text("Resultado"))),
+                  DataColumn(
+                      numeric: true, label: Expanded(child: Text("Marcador"))),
+                ],
+                rows: _listsRows(users.allUsers),
+              ),
+            ),
+          )),
+    );
   }
 
   Future<String?> openDialog(users) => showDialog<String>(
