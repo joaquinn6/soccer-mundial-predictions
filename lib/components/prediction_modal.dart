@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../models/response.dart';
 import '../providers/provider_events.dart';
@@ -45,33 +46,42 @@ class _EventPredictionState extends State<EventPrediction> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 4.0, right: 4.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Semantics(
-                      button: true,
-                      label: 'Guardar y cerrar modal',
-                      child: InkWell(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        child: const SizedBox(
-                          height: 30,
-                          child: Icon(Icons.close),
-                        ),
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            final Future<Response?> res =
-                                events.checkAndSave(user.idLogged);
-                            res.then((value) => {
-                                  if (events.errorSave.isEmpty)
-                                    {Navigator.pop(context)}
-                                  else
-                                    {debugPrint(events.errorSave)}
-                                });
-                          }
-                        },
+                  padding: const EdgeInsets.fromLTRB(15.0, 4.0, 4.0, 0.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Predicción',
+                        style: TextStyle(fontSize: 20),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Semantics(
+                          button: true,
+                          label: 'Guardar y cerrar modal',
+                          child: InkWell(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            child: const SizedBox(
+                              height: 30,
+                              child: Icon(Icons.close),
+                            ),
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                final Future<Response?> res =
+                                    events.checkAndSave(user.idLogged);
+                                res.then((value) => {
+                                      if (events.errorSave.isEmpty)
+                                        {Navigator.pop(context)}
+                                      else
+                                        {debugPrint(events.errorSave)}
+                                    });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Row(
@@ -109,10 +119,6 @@ class _EventPredictionState extends State<EventPrediction> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Predicción',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             Column(children: [
                               Text(events.eventSelected!.nombreLocal),
                               _flagShow(events.eventSelected!.isoLocal,
@@ -243,6 +249,7 @@ class _EventPredictionState extends State<EventPrediction> {
                                   events.eventSelected!.nombreVisita),
                               Text(events.eventSelected!.nombreVisita),
                             ]),
+                            Text(_formatDate(events.eventSelected!.fecha))
                           ],
                         ),
                       ),
@@ -311,4 +318,9 @@ Widget _flagShow(String iso, String name) {
       ),
     );
   }
+}
+
+String _formatDate(String hora) {
+  return DateFormat('dd-MM-yyyy – hh:mm aa')
+      .format(DateTime.parse(hora).toLocal());
 }

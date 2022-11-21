@@ -15,7 +15,6 @@ class _TableUserPageState extends State<TableUserPage> {
   final amigoEditText = TextEditingController();
   late UserRequest usersProvider;
   late FToast fToast;
-
   @override
   void initState() {
     usersProvider = Provider.of<UserRequest>(context, listen: false);
@@ -34,6 +33,8 @@ class _TableUserPageState extends State<TableUserPage> {
   @override
   Widget build(BuildContext context) {
     final users = Provider.of<UserRequest>(context);
+    double width = MediaQuery.of(context).size.width;
+
     return Semantics(
       label: "Tabla de posiciones",
       child: Scaffold(
@@ -52,18 +53,41 @@ class _TableUserPageState extends State<TableUserPage> {
             child: Semantics(
               readOnly: true,
               child: DataTable(
-                checkboxHorizontalMargin: 8.0,
-                columnSpacing: 8,
+                columnSpacing: width * 0.01,
                 dividerThickness: 1,
-                columns: const <DataColumn>[
-                  DataColumn(numeric: true, label: Expanded(child: Text("#"))),
-                  DataColumn(label: Expanded(child: Text("Nombre"))),
+                columns: <DataColumn>[
                   DataColumn(
-                      numeric: true, label: Expanded(child: Text("Total"))),
+                      numeric: true,
+                      label: Expanded(
+                          child: SizedBox(
+                              width: width * 0.05, child: const Text("")))),
                   DataColumn(
-                      numeric: true, label: Expanded(child: Text("Resultado"))),
+                      label: Expanded(
+                          child: SizedBox(
+                              width: width * 0.30,
+                              child: const Text("Nombre")))),
                   DataColumn(
-                      numeric: true, label: Expanded(child: Text("Marcador"))),
+                      numeric: true,
+                      label: Expanded(
+                          child: SizedBox(
+                              width: width * 0.10,
+                              child: const Text("Total")))),
+                  DataColumn(
+                      numeric: true,
+                      label: Expanded(
+                          child: SizedBox(
+                              width: width * 0.20,
+                              child: const Text(
+                                "Resultado",
+                                overflow: TextOverflow.ellipsis,
+                              )))),
+                  DataColumn(
+                      numeric: true,
+                      label: Expanded(
+                          child: SizedBox(
+                              width: width * 0.20,
+                              child: const Text("Marcador",
+                                  overflow: TextOverflow.ellipsis)))),
                 ],
                 rows: _listsRows(users.allUsers),
               ),
@@ -160,37 +184,56 @@ class _TableUserPageState extends State<TableUserPage> {
       toastDuration: const Duration(seconds: 2),
     );
   }
-}
 
-List<DataRow> _listsRows(List<Usuario> usuarios) {
-  List<DataRow> rows = [];
-  int index = 0;
-  for (var user in usuarios) {
-    DataRow row = DataRow(cells: [
-      DataCell(Text(
-        (index + 1).toString(),
-      )),
-      DataCell(Text(
-        user.username,
-      )),
-      DataCell(
-        Text(
-          user.total.toString(),
+  List<DataRow> _listsRows(List<Usuario> usuarios) {
+    double width = MediaQuery.of(context).size.width;
+    List<DataRow> rows = [];
+    int index = 0;
+    for (var user in usuarios) {
+      DataRow row = DataRow(cells: [
+        DataCell(SizedBox(
+          width: width * 0.05,
+          child: Text(
+            (index + 1).toString(),
+          ),
+        )),
+        DataCell(
+          SizedBox(
+            width: width * 0.30,
+            child: Text(
+              user.username,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
-      ),
-      DataCell(
-        Text(
-          user.puntosResultado.toString(),
+        DataCell(
+          SizedBox(
+            width: width * 0.10,
+            child: Text(
+              user.total.toString(),
+            ),
+          ),
         ),
-      ),
-      DataCell(
-        Text(
-          user.puntosMarcador.toString(),
+        DataCell(
+          SizedBox(
+            width: width * 0.20,
+            child: Text(
+              user.puntosResultado.toString(),
+            ),
+          ),
         ),
-      ),
-    ]);
-    rows.add(row);
-    index++;
+        DataCell(
+          SizedBox(
+            width: width * 0.20,
+            child: Text(
+              user.puntosMarcador.toString(),
+            ),
+          ),
+        ),
+      ]);
+      rows.add(row);
+      index++;
+    }
+    return rows;
   }
-  return rows;
 }
