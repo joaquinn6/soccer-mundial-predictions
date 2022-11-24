@@ -209,24 +209,30 @@ class _TableUserPageState extends State<TableUserPage> {
         DataCell(
           SizedBox(
             width: width * 0.10,
-            child: Text(
-              user.total.toString(),
+            child: Center(
+              child: Text(
+                user.total.toString(),
+              ),
             ),
           ),
         ),
         DataCell(
           SizedBox(
             width: width * 0.20,
-            child: Text(
-              user.puntosResultado.toString(),
+            child: Center(
+              child: Text(
+                user.puntosResultado.toString(),
+              ),
             ),
           ),
         ),
         DataCell(
           SizedBox(
             width: width * 0.20,
-            child: Text(
-              user.puntosMarcador.toString(),
+            child: Center(
+              child: Text(
+                user.puntosMarcador.toString(),
+              ),
             ),
           ),
         ),
